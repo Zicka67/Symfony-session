@@ -24,9 +24,6 @@ class FormationController extends AbstractController
         //Le premier argument est un tableau associatif qui indique ce qu'on veut chercher
         $formationList = $formationRepo->findBy([], ['title_formation' => 'ASC']);
        
-
-    
-
         return $this->render('formation/index.html.twig', [
             'formations' => $formationList,
             
