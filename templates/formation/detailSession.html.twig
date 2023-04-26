@@ -3,14 +3,33 @@
 {% block title %}Session {{ session.titlesection }}{% endblock %}
 
 {% block body %}
-  <h1>Session {{ session.titlesection }}</h1>
+  <h1>{{ session.titlesection }} :</h1>
+
+  {# Peut aussi s'afficher via toString mais préférence pour cette logique #}
+  <p>Professeur: {{ session.former.firstName }} {{ session.former.lastName }}</p>
 
   <p>Date de début: {{ session.dateBegin|date('d/m/Y') }}</p>
 
   <p>Date de fin: {{ session.dateEnd|date('d/m/Y') }}</p>
 
-  <p>Nombre de places disponibles: {{ session.nbPlaces }}</p>
+  <p>Nombre de places total: {{ session.nbPlaces }}</p>
+  {# On fait une soustraction simple, nbPlaces - le nbr de la collection de students dans session #}
+  <p>Nombre de places disponibles: {{ session.nbPlaces - session.students|length }}/{{ session.nbPlaces }}</p>
+
+{# On parcours la collections de stagiaire(students) de session avec une condition pour vérifier si ell eest vide #}
+{% if session.students is empty %}
+  <h2>Aucun stagiaire inscrit</h2>
+{% else %}
+  <h2>Liste des stagiaires inscrits :</h2>
+  <ul>
+    {% for student in session.students %}
+      <li>{{ student.firstName }} {{ student.lastName }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
 
 
   <a href="{{ path('formation_sessions', {'id': formation.id}) }}">Retour aux sessions de la formation "{{ formation.titleFormation }}"</a>
+  {# <br>
+  <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 {% endblock %}     
