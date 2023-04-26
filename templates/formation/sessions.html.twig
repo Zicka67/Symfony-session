@@ -3,14 +3,17 @@
 {% block title %}Sessions{% endblock %}
 
 {% block body %}
-  <h1>{{ formation.titleFormation }}</h1>
+  {# pas count mais |length en twig  #}
+  <h1>La {{ formation.titleFormation }} contient {{ sessions|length }} sessions :</h1>
 
   <ul>
     {% for session in sessions %}
-   <p>Cours de : <a href="{{ path('formation_detailSession', {'id': formation.id, 'sessionId': session.id}) }}"> {{ session.titlesection }}</a> </p>
+   <p>Cours de : <a href="{{ path('formation_detailSession', {'id': formation.id, 'sessionId': session.id}) }}"> {{ session.titlesection }} </a> </p>
     {% endfor %}
   </ul>
    {# app pour revenir sur la page de base formation (et pas juste formation) #}
-  <a href="{{ path('app_formation') }}">Retour à la liste des formations</a>
+  <a href="{{ path('app_formation') }}">Retour à la liste des formations</a> 
+  {# <br>
+  <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 
 {% endblock %}      

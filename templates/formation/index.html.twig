@@ -4,10 +4,13 @@
 
 {% block body %}
 
-{% for formation in formations %}        
-    {# Rajouter la path#}
-    <a href="{{ path('formation_sessions', {'id': formation.id}) }}">{{ formation.titleFormation }}</a> <br>
-   
-{% endfor %}
+<h1>Liste des formations</h1>
+
+          {% for formation in formations %}
+            <a href="{{ path('formation_sessions', {'id': formation.id}) }}">{{ formation.titleFormation }}</a> <br>
+          {% endfor %}
+{# <br>
+<a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
+
 
 {% endblock %}
