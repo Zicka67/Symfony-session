@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session {{ session.titlesection }}{% endblock %}
+
+{% block body %}
+  <h1>Session {{ session.titlesection }}</h1>
+
+  <p>Date de début: {{ session.dateBegin|date('d/m/Y') }}</p>
+
+  <p>Date de fin: {{ session.dateEnd|date('d/m/Y') }}</p>
+
+  <p>Nombre de places disponibles: {{ session.nbPlaces }}</p>
+
+
+  <a href="{{ path('formation_sessions', {'id': formation.id}) }}">Retour aux sessions de la formation "{{ formation.titleFormation }}"</a>
+{% endblock %}     

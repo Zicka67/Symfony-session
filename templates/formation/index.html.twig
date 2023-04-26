@@ -4,11 +4,10 @@
 
 {% block body %}
 
-{% for formation in formations %}
-                    <tr value="{{ formation.id }}">
-                        <td>{{ formation.title_formation }}</td>
+{% for formation in formations %}        
+    {# Rajouter la path#}
+    <a href="{{ path('formation_sessions', {'id': formation.id}) }}">{{ formation.titleFormation }}</a> <br>
    
-                    </tr>
-                    {% endfor %}
+{% endfor %}
 
 {% endblock %}

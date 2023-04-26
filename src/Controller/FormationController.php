@@ -16,12 +16,12 @@ class FormationController extends AbstractController
     {
         // Permet de vérifier si l'utilisateur est authentifié
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-       
+
         //créer une instance de FormationRepository en utilisant l'entityManager $entityManager
         $formationRepo = $entityManager->getRepository(Formation::class);
 
         //Le premier argument est un tableau associatif qui contient des critères de recherche optionnels
-        //Le premier argument est un tableau associatif qui indique ce qu'on veut chercher
+        //Le 2ieme argument est un tableau associatif qui indique ce qu'on veut chercher
         $formationList = $formationRepo->findBy([], ['title_formation' => 'ASC']);
        
         return $this->render('formation/index.html.twig', [
@@ -30,4 +30,29 @@ class FormationController extends AbstractController
          
         ]);
     }
+
+    #[Route('/formation/{id}/sessions', name: 'formation_sessions')]
+    public function showSessions($id, EntityManagerInterface $entityManager): Response
+    {
+        $formation = $entityManager->getRepository(Formation::class)->find($id);
+        $session = $formation->getSessions();
+        return $this->render('formation/sessions.html.twig', [
+            'sessions' => $session,
+            'formation' => $formation,
+        ]);
+    }
+
+    #[Route('/formation/{id}/sessions/{sessionId}', name: 'formation_detailSession')]
+    public function showDetailsSessions($id, $sessionId, EntityManagerInterface $entityManager): Response
+    {
+        $formation = $entityManager->getRepository(Formation::class)->find($id);
+        $session = $entityManager->getRepository(Session::class)->find($sessionId);
+    
+        return $this->render('formation/detailSession.html.twig', [
+            'session' => $session,
+            'formation' => $formation,
+        ]);
+    }
+    
+
 }
