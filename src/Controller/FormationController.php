@@ -42,17 +42,17 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/formation/{id}/sessions/{sessionId}', name: 'formation_detailSession')]
-    public function showDetailsSessions($id, $sessionId, EntityManagerInterface $entityManager): Response
-    {
-        $formation = $entityManager->getRepository(Formation::class)->find($id);
-        $session = $entityManager->getRepository(Session::class)->find($sessionId);
-    
-        return $this->render('formation/detailSession.html.twig', [
-            'session' => $session,
-            'formation' => $formation,
-        ]);
-    }
-    
+   #[Route('/formation/{id}/sessions/{sessionId}', name: 'formation_detailSession')]
+public function showDetailsSessions($id, $sessionId, EntityManagerInterface $entityManager): Response
+{
+    $formation = $entityManager->getRepository(Formation::class)->find($id);
+    $session = $entityManager->getRepository(Session::class)->find($sessionId);
+
+    return $this->render('formation/detailSession.html.twig', [
+        'session' => $session,
+        'formation' => $formation,
+    ]);
+}
+
 
 }
