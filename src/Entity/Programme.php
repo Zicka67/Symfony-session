@@ -16,6 +16,12 @@ class Programme
     #[ORM\Column]
     private ?int $duree = null;
 
+    #[ORM\ManyToOne(inversedBy: 'programmes')]
+    private ?Session $Session = null;
+
+    #[ORM\ManyToOne(inversedBy: 'programmes')]
+    private ?Modules $Modules = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +35,30 @@ class Programme
     public function setDuree(int $duree): self
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getSession(): ?Session
+    {
+        return $this->Session;
+    }
+
+    public function setSession(?Session $Session): self
+    {
+        $this->Session = $Session;
+
+        return $this;
+    }
+
+    public function getModules(): ?Modules
+    {
+        return $this->Modules;
+    }
+
+    public function setModules(?Modules $Modules): self
+    {
+        $this->Modules = $Modules;
 
         return $this;
     }

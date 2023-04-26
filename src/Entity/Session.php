@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,25 @@ class Session
 
     #[ORM\Column]
     private ?int $nb_places = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    private ?Formation $formation = null;
+
+    #[ORM\ManyToMany(targetEntity: Student::class, mappedBy: 'Session')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Collection $students;
+
+    #[ORM\ManyToOne(inversedBy: 'Session')]
+    private ?Former $former = null;
+
+    #[ORM\OneToMany(mappedBy: 'Session', targetEntity: Programme::class)]
+    private Collection $programmes;
+
+    public function __construct()
+    {
+        $this->students = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +96,87 @@ class Session
     public function setNbPlaces(int $nb_places): self
     {
         $this->nb_places = $nb_places;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->addSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            $student->removeSession($this);
+        }
+
+        return $this;
+    }
+
+    public function getFormer(): ?Former
+    {
+        return $this->former;
+    }
+
+    public function setFormer(?Former $former): self
+    {
+        $this->former = $former;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): self
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): self
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getSession() === $this) {
+                $programme->setSession(null);
+            }
+        }
 
         return $this;
     }

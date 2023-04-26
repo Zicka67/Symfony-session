@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FormerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormerRepository::class)]
@@ -18,6 +20,14 @@ class Former
 
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
+
+    #[ORM\OneToMany(mappedBy: 'former', targetEntity: Session::class)]
+    private Collection $Session;
+
+    public function __construct()
+    {
+        $this->Session = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,36 @@ class Former
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSession(): Collection
+    {
+        return $this->Session;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->Session->contains($session)) {
+            $this->Session->add($session);
+            $session->setFormer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->Session->removeElement($session)) {
+            // set the owning side to null (unless already changed)
+            if ($session->getFormer() === $this) {
+                $session->setFormer(null);
+            }
+        }
 
         return $this;
     }
