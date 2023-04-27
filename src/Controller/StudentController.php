@@ -25,6 +25,18 @@ class StudentController extends AbstractController
 
         return $this->render('student/index.html.twig', [
             'students' => $students,
-    ]);
-}
+        ]);
+    }
+
+    #[Route('/students/{id}', name: 'app_showDetailsStudent')]
+    public function showDetailsStudent($id, EntityManagerInterface $entityManager): Response
+    {
+        $student = $entityManager->getRepository(Student::class)->find($id);
+    
+        return $this->render('student/show.html.twig', [
+            'student' => $student,
+        ]);
+    }
+
+    
 }

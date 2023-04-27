@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de {{ student.firstName }} {{ student.lastName }}{% endblock %}
+
+{% block body %}
+    <h1>Détails de {{ student.firstName }} {{ student.lastName }}</h1>
+
+    <ul>
+        <li>Prénom : {{ student.firstName }}</li>
+        <li>Nom : {{ student.lastName }}</li>
+        <li>Phone : {{ student.phone }}</li>
+        <li>Email : {{ student.email }}</li>
+        <li>Ville : {{ student.ville }}</li>
+    </ul>
+
+    <h2>Inscrit à :</h2>
+        {# <ul>
+            {% for session in student.sessions %}
+                <li>{{ session.title }}</li>
+            {% endfor %}
+        </ul> #}
+
+{% endblock %}
+
