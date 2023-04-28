@@ -32,11 +32,14 @@ class StudentController extends AbstractController
     public function showDetailsStudent($id, EntityManagerInterface $entityManager): Response
     {
         $student = $entityManager->getRepository(Student::class)->find($id);
+        $sessions = $student->getSession();
     
         return $this->render('student/show.html.twig', [
             'student' => $student,
+            'sessions' => $sessions
         ]);
     }
+    
 
     
 }

@@ -14,11 +14,17 @@
     </ul>
 
     <h2>Inscrit à :</h2>
-        {# <ul>
-            {% for session in student.sessions %}
-                <li>{{ session.title }}</li>
+        <ul>
+            {# SI sessions est sup a 0 #}
+            {% if sessions|length > 0 %}
+            {# On boucle  #}
+                {% for session in sessions %}
+                    <li>{{ session.titleSection }}</li>
             {% endfor %}
-        </ul> #}
+            {# SINON #}
+            {% else %}
+                <p>Aucun inscription pour le moment</p>
+            {% endif %}
+        </ul>
 
 {% endblock %}
-
