@@ -112,7 +112,6 @@ nav ul li a {
     margin-top: 50px;
   }
 
-  
   table {
     width: 60%;
     border-collapse: separate; /* border-collapse: separate; pour utiliser border-spacing: 0; */
@@ -121,7 +120,6 @@ nav ul li a {
     overflow: hidden; /* Pour que border radius soit appliqué */
   }
   
-
   table td {
     padding: 2vw 0 2vw 8vw;
     vertical-align: top; 
@@ -158,6 +156,21 @@ nav ul li a {
   table th {
     background-color: var(--color-accent);
     color: var(--color-white);
+  }
+
+  .flexTab {
+    display: flex;
+    justify-content: center; 
+    margin: 0 10vw; 
+  }
+
+  .tabDetailSession {
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    table-layout: fixed; 
   }
 
 

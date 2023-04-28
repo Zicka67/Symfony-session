@@ -6,7 +6,8 @@
 
 <ul>
     {% for student in students %}
-    <li><a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></li>    {% endfor %}
+    <li><a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></li>   
+    {% endfor %}
 </ul>
 
 {# <br>

@@ -13,14 +13,18 @@
         <li>Ville : {{ student.ville }}</li>
     </ul>
 
-    <h2>Inscrit à :</h2>
-        <ul>
-            {# SI sessions est sup a 0 #}
-            {% if sessions|length > 0 %}
-            {# On boucle  #}
-                {% for session in sessions %}
-                    <li>{{ session.titleSection }}</li>
-            {% endfor %}
+    <ul>
+        {# SI sessions est sup a 0 #}
+        {% if sessions|length > 0 %}
+        {# On boucle  #}
+        {% for session in sessions %}
+        {# <h2>Inscrit dans la session {{ session.titleSection}} :</h2> #}
+                    {# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">{{ session.titleSection }}</a> #}
+                    <h1>Liste des sessions de l'étudiant</h1>
+                    <a href="{{ path('formation_sessions', {'id': session.id}) }}">Inscrit dans la session {{ session.titleSection}}</a>
+                    {# <a href="{{ path('formation_detailSession', {'id': formation.id, 'sessionId': session.id}) }}">Voir les détails</a> #}
+            
+                    {% endfor %}
             {# SINON #}
             {% else %}
                 <p>Aucun inscription pour le moment</p>

@@ -1,35 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} <h1>{{ session.titlesection }}</h1>{% endblock %}
+{% block title %}
+  <h1>{{ session.titlesection }}</h1>
+{% endblock %}
 
 {% block body %}
-  {# <h1>{{ session.titlesection }} :</h1> #}
+<div class="flexTab">
+  <div class="basic-tab">
 
-  {# Peut aussi s'afficher via toString mais préférence pour cette logique #}
-  <p>Professeur: {{ session.former.firstName }} {{ session.former.lastName }}</p>
+    {# Tableau infos #}
+    <table class="tabDetailSession">
 
-  <p>Date de début: {{ session.dateBegin|date('d/m/Y') }}</p>
+      <thead>
+        <tr>
+          <th colspan="2">Informations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {# Peut aussi s'afficher via toString mais préférence pour cette logique #}
+          <td>Professeur :</td>
+          <td>{{ session.former.firstName }} {{ session.former.lastName }}</td>
+        </tr>
+        <tr>
+          <td>Date de début :</td>
+          <td>{{ session.dateBegin|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+          <td>Date de fin :</td>
+          <td>{{ session.dateEnd|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+          <td>Nombre de places total :</td>
+          <td>{{ session.nbPlaces }}</td>
+        </tr>
+        <tr>
+          {# On fait une soustraction simple, nbPlaces - le nbr de la collection de students dans session #}
+          <td>Nombre de places disponibles :</td>
+          <td>{{ session.nbPlaces - session.students|length }}/{{ session.nbPlaces }}</td>
+        </tr>
+      </tbody>
 
-  <p>Date de fin: {{ session.dateEnd|date('d/m/Y') }}</p>
+    </table>
 
-  <p>Nombre de places total: {{ session.nbPlaces }}</p>
-  {# On fait une soustraction simple, nbPlaces - le nbr de la collection de students dans session #}
-  <p>Nombre de places disponibles: {{ session.nbPlaces - session.students|length }}/{{ session.nbPlaces }}</p>
+  </div>
 
-{# On parcours la collections de stagiaire(students) de session avec une condition pour vérifier si ell eest vide #}
-{% if session.students is empty %}
-  <h2>Aucun stagiaire inscrit</h2>
-{% else %}
-  <h2>Liste des stagiaires inscrits :</h2>
-  <ul>
-    {% for student in session.students %}
-      <li>{{ student.firstName }} {{ student.lastName }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+  {# tableau student #}
+  {% if session.students is not empty %}
+    <div class="basic-tab">
+
+      <table class="tabDetailSession">
+
+        <thead>
+          <tr>
+            <th>Liste des stagiaires inscrits :</th>
+          </tr>
+        </thead>
+        <tbody>
+          {# On parcours la collections de stagiaire(students) de session avec une condition pour vérifier si ell eest vide #}
+          {% for student in session.students %}
+            <tr>
+              <td><a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+    </div>
+</div>
+  {% endif %}
 
 
-  <a href="{{ path('formation_sessions', {'id': formation.id}) }}">Retour aux sessions de la formation "{{ formation.titleFormation }}"</a>
+  <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a>
   {# <br>
   <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
-{% endblock %}     
+{% endblock %}
