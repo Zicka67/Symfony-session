@@ -67,10 +67,18 @@
 
       </table>
 
+        {# {% if nonInscrits is not empty %}
+          <h2>Étudiants non inscrits :</h2>
+          <ul>
+              {% for student in nonInscrits %}
+                  <li>{{ student.lastName }} {{ student.firstName }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %} #}
+
     </div>
 </div>
   {% endif %}
-
 
   <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a>
   {# <br>

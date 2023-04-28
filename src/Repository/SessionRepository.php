@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Session;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
 /**
  * @extends ServiceEntityRepository<Session>
@@ -38,6 +39,28 @@ class SessionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    // public function findNonInscrits($session_id)
+    // {
+
+    //     $em = $this->getEntityManager();
+    //     $sub = $em ->createQueryBuilder();
+
+    //     $qb = $sub;
+    //     $qb->select('s')
+    //        ->from('App\Entity\Student', 's')
+    //        ->leftJoin('s.sessions', 's')
+    //        ->where('se.id = :id');
+
+    //     $sub = $em->createQueryBuilder();
+    //     $sub->select('st')
+    //         ->where('App\Entity\Student', 'st')
+    //         ->setParameter('id' ,$session_id)
+    //         ->orderBy('st.lastName');
+        
+    //     $query = $sub->getQuery();
+    //     return $query->getResult();
+    // }
 
 //    /**
 //     * @return Session[] Returns an array of Session objects

@@ -39,6 +39,21 @@ class StudentRepository extends ServiceEntityRepository
         }
     }
 
+
+    // public function findNonInscrits($session_id)
+    // {
+    //     $qb = $this->createQueryBuilder('s');
+    //     $qb->select('s')
+    //     ->leftJoin('s.sessions', 'sess')
+    //     ->where('sess.id != :id')
+    //     ->setParameter('id', $session_id)
+    //     ->orderBy('s.lastName');
+
+    //     return $qb->getQuery()->getResult();
+    // }
+    
+
+
 //    /**
 //     * @return Student[] Returns an array of Student objects
 //     */

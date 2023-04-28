@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Entity\Student;
 use App\Repository\SessionRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,20 @@ class SessionController extends AbstractController
             'controller_name' => 'SessionController',
         ]);
     }
+
+//     #[Route('/session/{id}', name: 'show_session')]
+// public function show(Session $session, SessionRepository $sr): Response
+// {
+//     $nonInscrits = $sr->findNonInscrits($session->getId());
+//     // $nonProgrammes = []; 
+
+//     return $this->render('formation/detailSession.html.twig', [
+//         'session' => $session->getId(),
+//         'nonInscrits' => $nonInscrits
+//         // 'nonProgrammes' => $nonProgrammes
+//     ]);
+// }
+
 
     // //{id} permet de récupérer l'identifiant du student dans l'URL à pas oublier
     // #[Route('/session/student/{id}', name: 'app_session_student')]
