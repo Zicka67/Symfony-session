@@ -1,3 +1,209 @@
-h1 {
-    color: red;
+/* Reset CSS */
+
+/* Remove default margin */
+body,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+dl, dd, ol, ul,
+figure,
+table, caption,
+fieldset, legend {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove default list styles */
+ol, ul {
+    list-style: none;
+}
+
+/* Set default font family and size */
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+/* Remove default text decoration */
+a {
+    text-decoration: none;
+}
+
+/* Set default box-sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Enlever la couleur des liens */
+nav a:visited {
+    color: var(--color-white);
+  }
+
+table a:visited {
+color: var(--color-white);
+}
+
+/* ************ Colors **************** */
+
+:root {
+    --color-primary: #efba50;
+    /* --color-primary: #eba820; */
+    --color-secondary: #7FDBFF;
+    --color-accent: #7a1510;
+    --color-black: #000000;
+    --color-white: #ffffff;
+  }
+
+/* **************************** */
+
+/* ************* HEADER ************* */
+
+.page-title {
+    color: #eba820;
+    margin: 5vw auto 5vw auto;
+    text-align: center;
+}
+
+.page-title h1 {
+    font-size: 2/5vw;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+  /* Style pour la barre de menu */
+  header {
+    background-color: var(--color-accent);
+    overflow: hidden;
+    position: relative;
+}
+
+nav {
+    float: right;
+    padding: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: var(--color-white);
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1vw;
+    text-transform: uppercase;
+}
+
+/* **************** BASIC TAB ********************* */
+
+.basic-tab {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  
+  table {
+    width: 60%;
+    border-collapse: separate; /* border-collapse: separate; pour utiliser border-spacing: 0; */
+    border-spacing: 0;
+    border-radius: 5px;
+    overflow: hidden; /* Pour que border radius soit appliqué */
+  }
+  
+
+  table td {
+    padding: 2vw 0 2vw 8vw;
+    vertical-align: top; 
+    width: 50%; 
+    text-align: left; 
+    font-size: 1vw;
+  }
+
+  table th {
+    padding: 1vw;
+    vertical-align: top; 
+    width: 50%; 
+    text-align: center; 
+    font-size: 1.5vw;
+  }
+
+  table td a{
+    padding-left: 3.7vw;
+  }
+  
+  table td {
+    color: var(--color-white);
+    font-weight: bold;
+  }
+  
+  table tr:nth-child(odd) {
+    background-color: var(--color-primary);
+  }
+  
+  table tr:nth-child(even) {
+    background-color: var(--color-accent);
+  }
+  
+  table th {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+  }
+
+
+
+/* ************************************* */
+
+
+/* Style pour le buton menu mobile */
+.icon {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ************************************************** */
+@media screen and (max-width: 600px) {
+    nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .icon {
+        display: block;
+    }
 }

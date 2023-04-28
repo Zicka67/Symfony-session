@@ -15,7 +15,8 @@
         {% endblock %}
     </head>
     <body>
-        <header>
+        <header>   
+
             <nav>
                 <ul>
                     <li><a href="{{ path('app_home') }}">Accueil</a></li>
@@ -32,7 +33,20 @@
                     {% endif %}
                 </ul>
             </nav>
+
         </header>
+
+        <div class="container">
+            <div class="page-title">
+                <p>{{ block('title') }}</p>
+            </div>
+        </div>
+
+
+
+        <footer>
+
+        </footer>
         {% block body %}{% endblock %}
     </body>
 </html>

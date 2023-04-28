@@ -1,14 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FormationController!{% endblock %}
+{% block title %}<h1>Les formations</h1>{% endblock %}
 
 {% block body %}
+      <div class="basic-tab">
 
-<h1>Liste des formations</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Titre de la formation</th>
+              <th>Sessions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for formation in formations %}
+              <tr>
+                <td class="firstTd">{{ formation.titleFormation }}</td>
+                <td><a href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-          {% for formation in formations %}
-            <a href="{{ path('formation_sessions', {'id': formation.id}) }}">{{ formation.titleFormation }}</a> <br>
-          {% endfor %}
+      </div>
 {# <br>
 <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 

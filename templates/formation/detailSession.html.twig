@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Session {{ session.titlesection }}{% endblock %}
+{% block title %} <h1>{{ session.titlesection }}</h1>{% endblock %}
 
 {% block body %}
-  <h1>{{ session.titlesection }} :</h1>
+  {# <h1>{{ session.titlesection }} :</h1> #}
 
   {# Peut aussi s'afficher via toString mais préférence pour cette logique #}
   <p>Professeur: {{ session.former.firstName }} {{ session.former.lastName }}</p>
