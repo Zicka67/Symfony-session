@@ -15,7 +15,7 @@
         {% for session in sessions %}
           <tr>
             <td class="firstTd">{{ session.titlesection }}</td>
-            <td><a href="{{ path('formation_detailSession', {'id': formation.id, 'sessionId': session.id}) }}">Voir les détails</a></td>
+            <td><a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">Voir les détails</a></td>
           </tr>
         {% endfor %}
       </tbody>
