@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} <h1>Les étudiants</h1> {% endblock %}
+{% block title %}Étudiants inscrits{% endblock %}
 
 {% block body %}
-
+    <h1>Étudiants inscrits à la session "{{ session.title_section }}" :</h1>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.firstName }} {{ student.lastName }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
