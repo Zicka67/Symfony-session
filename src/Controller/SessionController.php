@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Repository\SessionRepository;
+use App\Repository\StudentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,31 +21,33 @@ class SessionController extends AbstractController
         ]);
     }
 
-//     #[Route('/session/{id}', name: 'show_session')]
-// public function show(Session $session, SessionRepository $sr): Response
-// {
-//     $nonInscrits = $sr->findNonInscrits($session->getId());
-//     // $nonProgrammes = []; 
+    #[Route('/sessions/{id}', name: 'app_showDetailsSession')]
+    public function showDetailsSession($id, EntityManagerInterface $entityManager, StudentRepository $studentRepository): Response
+    {
+        $session = $entityManager->getRepository(Session::class)->find($id);
+        $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
+        // dd($studentsNotInSession);
+        return $this->render('formation/detailSession.html.twig', [
+            'session' => $session,
+            'studentsNotInSession' => $studentsNotInSession
+        ]);
+    }
 
-//     return $this->render('formation/detailSession.html.twig', [
-//         'session' => $session->getId(),
-//         'nonInscrits' => $nonInscrits
-//         // 'nonProgrammes' => $nonProgrammes
-//     ]);
-// }
-
-
-    // //{id} permet de récupérer l'identifiant du student dans l'URL à pas oublier
-    // #[Route('/session/student/{id}', name: 'app_session_student')]
-    // // La fonction prend en paramètre un objet SessionRepository et un objet Student.
-    // //On utilise SessionRepository $sessionRepository pour accèder a ces propiétés dans le controller
-    // public function findByStudent(SessionRepository $sessionRepository, Student $student): Response
-    // {
-    //     //Récupère toutes les sessions dans lesquelles le student est inscrit avec la méthode findByStudent de l'objet SessionRepository et Student en paramètre
-    //     $sessions = $sessionRepository->findByStudent($student);
-        
-    //     return $this->render('session/index.html.twig', [
-    //         'sessions' => $sessions,
-    //     ]);
-    // }
+    #[Route('/sessions/{id}/add-student/{studentId}', name: 'app_addStudentToSession')]
+    public function addStudentToSession($id, $studentId, EntityManagerInterface $entityManager): Response
+    {
+        $session = $entityManager->getRepository(Session::class)->find($id);
+        $student = $entityManager->getRepository(Student::class)->find($studentId);
+    
+        if (!$session || !$student) {
+            throw $this->createNotFoundException('La session ou l\'étudiant est introuvable.');
+        }
+    
+        $session->addStudent($student);
+    
+        $entityManager->persist($session);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_detailSession', ['id' => $id]);
+    }
 }
