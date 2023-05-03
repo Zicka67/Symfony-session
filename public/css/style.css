@@ -136,9 +136,13 @@ nav ul li a {
     font-size: 1.5vw;
   }
 
-  table td a{
-    padding-left: 3.7vw;
+ .reset{
+    padding-left: 0;
   }
+
+ table td a {
+  padding-left: 3.7vw;
+ }
   
   table td {
     color: var(--color-white);
@@ -164,6 +168,10 @@ nav ul li a {
     margin: 0 10vw; 
   }
 
+  .addingTd {
+    padding-left: 2.5vw;
+  }
+
   .tabDetailSession {
     width: 80%;
     border-collapse: separate;
@@ -171,6 +179,10 @@ nav ul li a {
     border-radius: 5px;
     overflow: hidden;
     table-layout: fixed; 
+  }
+
+  .text-center {
+    padding-left: 2.5vw;
   }
 
 
