@@ -18,26 +18,24 @@
       </thead>
       <tbody>
         <tr>
-          {# Peut aussi s'afficher via toString mais préférence pour cette logique #}
-          <td>Professeur :</td>
-          <td>{{ session.former.firstName }} {{ session.former.lastName }}</td>
+          <td class="text-center">Professeur :</td>
+          <td class="margin text-center">{{ session.former.firstName }} {{ session.former.lastName }}</td>
         </tr>
         <tr>
-          <td>Date de début :</td>
-          <td>{{ session.dateBegin|date('d/m/Y') }}</td>
+          <td class="text-center">Date de début :</td>
+          <td class="reset text-center">{{ session.dateBegin|date('d/m/Y') }}</td>
         </tr>
         <tr>
-          <td>Date de fin :</td>
-          <td>{{ session.dateEnd|date('d/m/Y') }}</td>
+          <td class="text-center">Date de fin :</td>
+          <td class="reset text-center">{{ session.dateEnd|date('d/m/Y') }}</td>
         </tr>
         <tr>
-          <td>Nombre de places total :</td>
-          <td>{{ session.nbPlaces }}</td>
+          <td class="text-center">Nombre de places total :</td>
+          <td class="reset text-center">{{ session.nbPlaces }}</td>
         </tr>
         <tr>
-          {# On fait une soustraction simple, nbPlaces - le nbr de la collection de students dans session #}
-          <td>Nombre de places disponibles :</td>
-          <td>{{ session.nbPlaces - session.students|length }}/{{ session.nbPlaces }}</td>
+          <td class="text-center">Nombre de places disponibles :</td>
+          <td class="text-center">{{ session.nbPlaces - session.students|length }}/{{ session.nbPlaces }}</td>
         </tr>
       </tbody>
 
@@ -60,27 +58,40 @@
           {# On parcours la collections de stagiaire(students) de session avec une condition pour vérifier si ell eest vide #}
           {% for student in session.students %}
             <tr>
-              <td><a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
+              <td><a class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
             </tr>
           {% endfor %}
         </tbody>
 
       </table>
 
-        {# {% if nonInscrits is not empty %}
-          <h2>Étudiants non inscrits :</h2>
-          <ul>
-              {% for student in nonInscrits %}
-                  <li>{{ student.lastName }} {{ student.firstName }}</li>
-              {% endfor %}
-          </ul>
-        {% endif %} #}
-
     </div>
-</div>
   {% endif %}
 
-  <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a>
-  {# <br>
+  {% if studentsNotInSession is defined and studentsNotInSession is not empty %}
+  <div class="basic-tab">
+    <table class="tabDetailSession">
+      <thead>
+        <tr>
+          <th>Étudiants non inscrits :</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in studentsNotInSession %}
+        <tr>
+          <td class="addingTd">{{ student.lastName }} {{ student.firstName }} <a href="{{ path('app_addStudentToSession', {'id': session.id, 'studentId': student.id}) }}" class="btn btn-primary">Ajouter</a></td>
+        </tr> 
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>Aucun étudiant libre.</p>
+{% endif %}
+
+</div>
+
+{# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a> #}
+{# <br>
   <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 {% endblock %}
