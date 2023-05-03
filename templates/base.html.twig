@@ -24,7 +24,7 @@
                     {# Verifie si un user est actuellement connecté ( true false) #}
                     {% if app.user %}
                     {# ou {% if is_granted('ROLE_USER') %} #}
-                    <li><a href="{{ path('app_listStudients') }}">Stagiaires</a></li>
+                    <li><a href="{{ path('app_listStudients') }}">Etudiants</a></li>
                     <li><a href="{{ path('app_former') }}">Formateurs</a></li>
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li> 
                     {% else %}
