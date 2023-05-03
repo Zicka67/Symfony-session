@@ -39,18 +39,75 @@ class StudentRepository extends ServiceEntityRepository
         }
     }
 
-
-    // public function findNonInscrits($session_id)
+    // public function findStudentsNotInSessionDetailSession(): array
     // {
-    //     $qb = $this->createQueryBuilder('s');
-    //     $qb->select('s')
-    //     ->leftJoin('s.sessions', 'sess')
-    //     ->where('sess.id != :id')
-    //     ->setParameter('id', $session_id)
-    //     ->orderBy('s.lastName');
-
-    //     return $qb->getQuery()->getResult();
+    //     $entityManager = $this->getEntityManager();
+    
+    //     $query = $entityManager->createQuery(
+    //         'SELECT s
+    //         FROM App\Entity\Student s
+    //         WHERE NOT EXISTS (
+    //             SELECT 1
+    //             FROM App\Entity\Session ss
+    //             JOIN ss.students st
+    //             WHERE st.id = s.id
+    //         )'
+    //     );
+    
+    //     return $query->getResult();
     // }
+
+    public function findStudentsNotInSessionDetailSession($session_id)
+ {
+        //On récupère l'objet entityManager ( gestion entity )
+        $em = $this->getEntityManager();
+        //On créer un nouvel objet Query avec doctrine pour construire les sous requêtes
+        $sub = $em->createQueryBuilder();
+
+        // On stock l(objet dans une variable
+        $qb = $sub;
+        // sélectionner tous les stagiaires d'une session dont l'id est passé en paramètre
+        $qb->select('s')
+        ->from('App\Entity\Stagiaire', 's')
+        ->leftJoin('s.sessions', 'se')
+        ->where('se.id = :id');
+
+        //On créer un nouvel objet Query avec doctrine pour construire la requete PRINCIPALE
+        $sub = $em->createQueryBuilder();
+        // sélectionner tous les stagiaires qui ne SONT PAS (NOT IN) dans le résultat précédent
+        // on obtient donc les stagiaires non inscrits pour une session définie
+        $sub->select('st')
+        ->from('App\Entity\Stagiaire', 'st')
+        ->where($sub->expr()->notIn('st.id', $qb->getDQL()))
+        // requête paramétrée
+        ->setParameter('id', $session_id)
+        // trier la liste des stagiaires sur le nom de famille
+        ->orderBy('st.nom');
+
+        // renvoyer le résultat
+        $query = $sub->getQuery();
+        return $query->getResult();
+        //Ou directement return $sub->getQuery()
+}
+
+
+    public function findStudentsNotInSession($sessionId)
+{
+    $entityManager = $this->getEntityManager();
+
+    $query = $entityManager->createQuery(
+    'SELECT s
+            FROM App\Entity\Student s
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM App\Entity\Session ss
+                JOIN ss.students st
+                WHERE st.id = s.id
+            )'
+    );
+
+    return $query->getResult();
+}
     
 
 
