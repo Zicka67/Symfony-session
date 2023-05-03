@@ -1,34 +1,43 @@
+{# templates/student/show.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Détails de {{ student.firstName }} {{ student.lastName }}{% endblock %}
 
 {% block body %}
-    <h1>Détails de {{ student.firstName }} {{ student.lastName }}</h1>
-
-    <ul>
-        <li>Prénom : {{ student.firstName }}</li>
-        <li>Nom : {{ student.lastName }}</li>
-        <li>Phone : {{ student.phone }}</li>
-        <li>Email : {{ student.email }}</li>
-        <li>Ville : {{ student.ville }}</li>
-    </ul>
-
-    <ul>
-        {# SI sessions est sup a 0 #}
-        {% if sessions|length > 0 %}
-        {# On boucle  #}
-        {% for session in sessions %}
-        {# <h2>Inscrit dans la session {{ session.titleSection}} :</h2> #}
-                    {# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">{{ session.titleSection }}</a> #}
-                    <h1>Liste des sessions de l'étudiant</h1>
-                    <a href="{{ path('formation_sessions', {'id': session.id}) }}">Inscrit dans la session {{ session.titleSection}}</a>
-                    {# <a href="{{ path('formation_detailSession', {'id': formation.id, 'sessionId': session.id}) }}">Voir les détails</a> #}
-            
-                    {% endfor %}
-            {# SINON #}
-            {% else %}
-                <p>Aucun inscription pour le moment</p>
-            {% endif %}
-        </ul>
+<div class="basic-tab">
+    <table class="tabDetailSession">
+      <thead>
+        <tr>
+          <th colspan="2">Détails de {{ student.firstName }} {{ student.lastName }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prénom :</td>
+          <td>{{ student.firstName }}</td>
+        </tr>
+        <tr>
+          <td>Nom :</td>
+          <td>{{ student.lastName }}</td>
+        </tr>
+        <tr>
+          <td>Phone :</td>
+          <td>{{ student.phone }}</td>
+        </tr>
+        <tr>
+          <td>Email :</td>
+          <td>{{ student.email }}</td>
+        </tr>
+        <tr>
+          <td>Ville :</td>
+          <td>{{ student.ville }}</td>
+        </tr>
+        {# {% for session in sessions %}
+            <a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.title_section }}</a>
+        {% endfor %} #}
+      </tbody>
+    </table>
+  </div>
 
 {% endblock %}
