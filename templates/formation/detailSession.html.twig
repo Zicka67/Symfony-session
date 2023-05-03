@@ -59,6 +59,7 @@
           {% for student in session.students %}
             <tr>
               <td><a class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
+              <td><a class="reset" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" class="btn btn-danger">Supprimer</a></td>
             </tr>
           {% endfor %}
         </tbody>

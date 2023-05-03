@@ -48,6 +48,18 @@ class SessionController extends AbstractController
         $entityManager->persist($session);
         $entityManager->flush();
     
-        return $this->redirectToRoute('app_detailSession', ['id' => $id]);
+        return $this->redirectToRoute('app_showDetailsSession', ['id' => $id]);
+    }
+
+    #[Route('/sessions/{sessionId}/students/remove/{studentId}', name: 'app_removeStudentFromSession')]
+    public function removeStudentFromSession($sessionId, $studentId, EntityManagerInterface $entityManager, SessionRepository $sessionRepository): Response
+    {
+        $session = $sessionRepository->find($sessionId);
+        $student = $entityManager->getRepository(Student::class)->find($studentId);
+        
+        $session->removeStudent($student);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_showDetailsSession', ['id' => $sessionId]);
     }
 }
