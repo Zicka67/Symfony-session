@@ -49,7 +49,7 @@
 
         <thead>
           <tr>
-            <th>Liste des stagiaires inscrits :</th>
+            <th colspan="2">Liste des stagiaires inscrits :</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@
           {% for student in session.students %}
             <tr>
               <td><a class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
-              <td><a class="reset" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" class="btn btn-danger">Supprimer</a></td>
+              <td><a class="reset red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" >Supprimer</a></td>
             </tr>
           {% endfor %}
         </tbody>
@@ -72,21 +72,21 @@
     <table class="tabDetailSession">
       <thead>
         <tr>
-          <th>Étudiants non inscrits :</th>
+          <th >Étudiants non inscrits :</th>
         </tr>
       </thead>
       <tbody>
         {% for student in studentsNotInSession %}
         <tr>
-          <td class="addingTd">{{ student.lastName }} {{ student.firstName }} <a href="{{ path('app_addStudentToSession', {'id': session.id, 'studentId': student.id}) }}" class="btn btn-primary">Ajouter</a></td>
+          <td class="addingTd">{{ student.firstName }} {{ student.lastName }} <a class="green" href="{{ path('app_addStudentToSession', {'id': session.id, 'studentId': student.id}) }}">Ajouter</a></td>
         </tr> 
         {% endfor %}
       </tbody>
     </table>
   </div>
-{% else %}
-  <p>Aucun étudiant libre.</p>
-{% endif %}
+  {% else %}
+    <p>Aucun étudiant libre.</p>
+  {% endif %}
 
 </div>
 

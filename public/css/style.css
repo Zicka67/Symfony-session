@@ -20,12 +20,13 @@ ol, ul {
 /* Set default font family and size */
 body {
     font-family: sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /* Remove default text decoration */
 a {
     text-decoration: none;
+    /* color: var(--color-secondary); */
 }
 
 /* Set default box-sizing */
@@ -44,18 +45,36 @@ color: var(--color-white);
 
 span { 
   text-transform: uppercase;
-  font-size: 2vw;
+  font-size: 1rem;
 }
 
 /* ************ Colors **************** */
 
 :root {
-    --color-primary: #efba50;
+    --color-primary: #f6daa2;
     /* --color-primary: #eba820; */
-    --color-secondary: #7FDBFF;
-    --color-accent: #7a1510;
+    --color-secondary: #0d17df;
+    --color-accent: #dd7b47;
     --color-black: #000000;
-    --color-white: #ffffff;
+    --color-white: #3c3c3c;
+    --color-green: #178911;
+    --color-red: #b51616;
+  }
+
+  .green {
+      color: var(--color-green);
+  }
+
+  .green:visited {
+    color: var(--color-green);
+}
+
+  .red {
+    color: var(--color-red);
+  }
+
+  .red:visited {
+    color: var(--color-red);
   }
 
 /* **************************** */
@@ -66,12 +85,12 @@ span {
     color: #eba820;
     margin: 5vw auto 5vw auto;
     text-align: center;
-    font-size: 3vw;
+    font-size: 2rem;
     text-transform: uppercase;
 }
 
 .page-title h1 {
-    font-size: 2/5vw;
+    font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -107,7 +126,8 @@ nav ul li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 1vw;
+    font-size: 1.2rem;
+    font-weight: bold;
     text-transform: uppercase;
 }
 
@@ -132,7 +152,7 @@ nav ul li a {
     vertical-align: top; 
     width: 50%; 
     text-align: left; 
-    font-size: 1vw;
+    font-size: 1rem;
   }
 
   table th {
@@ -140,15 +160,16 @@ nav ul li a {
     vertical-align: top; 
     width: 50%; 
     text-align: center; 
-    font-size: 1.5vw;
+    font-size: 1.5rem;
   }
 
  .reset{
     padding-left: 0;
+    margin-left: -5.5vw;
   }
 
  table td a {
-  padding-left: 3.7vw;
+  padding-left: 3.5vw;
  }
   
   table td {
@@ -171,12 +192,17 @@ nav ul li a {
 
   .flexTab {
     display: flex;
+    flex-direction: column;
     justify-content: center; 
     margin: 0 10vw; 
   }
 
   .addingTd {
     padding-left: 2.5vw;
+  }
+
+  .firstTd {
+    padding-left: 8.5vw;
   }
 
   .tabDetailSession {
@@ -194,7 +220,48 @@ nav ul li a {
 
 
 
-/* ************************************* */
+/* *************** INSCRIPTION ********************** */
+
+.alert {
+  margin-bottom: 1rem;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* ************************************************ */
+
+
+/* Styling for the submit button */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+
 
 
 /* Style pour le buton menu mobile */
@@ -206,17 +273,6 @@ nav ul li a {
     padding: 15px;
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ************************************************** */
