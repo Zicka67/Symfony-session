@@ -43,23 +43,6 @@ class FormationController extends AbstractController
         ]);
     }
 
-    
-
-//    #[Route('/sessions/{sessionId}', name: 'formation_detailSession')]
-//     public function showDetailsSessions( $sessionId, EntityManagerInterface $entityManager, StudentRepository $studentRepository): Response
-//     {
-//         // $formation = $entityManager->getRepository(Formation::class)->find($id);
-//         $session = $entityManager->getRepository(Session::class)->find($sessionId);
-//         // $studentsNotInSession = $studentRepository->findStudentsNotInSessionDetailSession();
-
-
-//         return $this->render('formation/detailSession.html.twig', [
-//             'session' => $session,
-//             'formation' => $session->getFormation(),
-//             // 'studentsNotInSession' => $studentsNotInSession
-//         ]);
-//     }
-
 
 
 }

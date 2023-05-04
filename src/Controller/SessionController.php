@@ -7,6 +7,7 @@ use App\Entity\Student;
 use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,5 +62,26 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_showDetailsSession', ['id' => $sessionId]);
+    }
+
+    #[Route('/sessions/create', name: 'app_createSession')]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $session = new Session();
+
+        $form = $this->createForm(SessionType::class, $session);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($session);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_showDetailsSession', ['id' => $session->getId()]);
+        }
+
+        return $this->render('session/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
