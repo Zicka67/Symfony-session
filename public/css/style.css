@@ -137,6 +137,16 @@ nav ul li a {
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    
+  }
+
+  .basic-tab-module {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    margin: 50px auto 0 auto;
+    padding-left: 11vw;
   }
 
   table {

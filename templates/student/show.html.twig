@@ -40,9 +40,11 @@
           <td>Sessions en cours de {{ student.firstName }} {{ student.lastName }}</td>
           <td> <a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.getTitleSection }}</a></td>
           {% endfor %}
-        </tr>
+        
           {% else %}
-              <p>Pas de session</p>
+            <td>Sessions en cours de {{ student.firstName }} {{ student.lastName }}</td>
+            <td>Pas de session actuellement</td>
+            </tr>
           {% endif %}
         
       </tbody>

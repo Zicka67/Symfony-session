@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Modules;
+use App\Entity\Category;
+use App\Repository\ModulesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,13 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModuleController extends AbstractController
 {
-    #[Route('/module', name: 'app_module')]
-    public function index(): Response
-    {
-        return $this->render('module/index.html.twig', [
-            'controller_name' => 'ModuleController',
-        ]);
-    }
+        #[Route('/module', name: 'app_module')]
+        public function index(ModulesRepository $modulesRepository): Response
+        {
+            $modules = $modulesRepository->findAll();
+            
+            return $this->render('module/index.html.twig', [
+                'controller_name' => 'ModuleController',
+                'modules' => $modules,
+            ]);
+        }
 
     #[Route('/modules/new', name: 'modules_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -43,13 +48,15 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route('/modules/{id}', name: 'modules_show', methods: ['GET'])]
-    public function show(Modules $module): Response
-    {
-        return $this->render('modules/show.html.twig', [
-            'module' => $module,
-        ]);
-    }
+    // #[Route('/module', name: 'modules_show', methods: ['GET'])]
+    // public function show(Modules $modules, EntityManagerInterface $entityManager): Response
+    // {
+    //     $modules = $entityManager->getRepository(Modules::class)->findAll();
+    
+    //     return $this->render('module/index.html.twig', [
+    //         'modules' => $modules,
+    //     ]);
+    // }
 }
 
 

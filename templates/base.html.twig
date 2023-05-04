@@ -26,6 +26,8 @@
                     {# ou {% if is_granted('ROLE_USER') %} #}
                     <li><a href="{{ path('app_listStudients') }}">Etudiants</a></li>
                     <li><a href="{{ path('app_former') }}">Formateurs</a></li>
+                    <li><a href="{{ path('app_programme') }}">Programmes</a></li>
+                    <li><a href="{{ path('app_module') }}">Modules</a></li>
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li> 
                     {% else %}
                     <li><a href="{{ path('app_register') }}">S'enregistrer</a></li>
