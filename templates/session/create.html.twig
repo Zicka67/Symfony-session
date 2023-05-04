@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une session{% endblock %}
+
+{% block body %}
+  <h1>Création d'une session</h1>
+
+  {{ form_start(form) }}
+
+  {{ form_row(form.formation) }}
+  {{ form_row(form.former) }}
+  {{ form_row(form.title_section) }}
+  {{ form_row(form.date_begin) }}
+  {{ form_row(form.date_end) }}
+  {{ form_row(form.nb_places) }}
+
+  {{ form_row(form._token) }}
+
+  <button type="submit">Créer</button>
+
+  {{ form_end(form) }}
+{% endblock %}
