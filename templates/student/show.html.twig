@@ -33,9 +33,18 @@
           <td>Ville :</td>
           <td>{{ student.ville }}</td>
         </tr>
-        {# {% for session in sessions %}
-            <a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.title_section }}</a>
-        {% endfor %} #}
+        {% if estInscrit %}
+        <tr>
+          {% for session in sessions %}
+          {# {{ dump(sessions) }} #}
+          <td>Sessions en cours de {{ student.firstName }} {{ student.lastName }}</td>
+          <td> <a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.getTitleSection }}</a></td>
+          {% endfor %}
+        </tr>
+          {% else %}
+              <p>Pas de session</p>
+          {% endif %}
+        
       </tbody>
     </table>
   </div>

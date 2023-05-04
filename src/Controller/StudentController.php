@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,28 +31,20 @@ class StudentController extends AbstractController
     }
 
     #[Route('/students/{id}', name: 'app_showDetailsStudent')]
-    public function showDetailsStudent($id, EntityManagerInterface $entityManager, StudentRepository $studentRepository): Response
+    public function showDetailsStudent($id, EntityManagerInterface $entityManager): Response
     {
         $student = $entityManager->getRepository(Student::class)->find($id);
         $sessions = $student->getSession();
-        // $studentsNotInSession = $studentRepository->findStudentsNotInSessionDetailSession();
+        $estInscrit = ($sessions->count() > 0);
     
         return $this->render('student/show.html.twig', [
             'student' => $student,
             'sessions' => $sessions,
-            // 'studentsNotInSession' => $studentsNotInSession
+            'estInscrit' => $estInscrit
         ]);
     }
-    
-    // #[Route('/not_in_session', name: 'app_show_students_not_in_session')]
-    // public function showStudentsNotInSession(StudentRepository $studentRepository): Response
-    // {
-    //     $studentsNotInSession = $studentRepository->findStudentsNotInSession();
 
-    //     return $this->render('student/not_in_session.html.twig', [
-    //         'studentsNotInSession' => $studentsNotInSession,
-    //     ]);
-    // }
+    
 
     
 }
