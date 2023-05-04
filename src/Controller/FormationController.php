@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\Formation;
+use App\Form\FormationType;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +29,27 @@ class FormationController extends AbstractController
             'formation' => $formation,
         ]);
     }  
+
+    #[Route('/formationCreate/create', name: 'app_formationCreate')]
+    public function createFormation(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $formation = new Formation();
+
+        $form = $this->createForm(FormationType::class, $formation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($formation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_formation', ['id' => $formation->getId()]);
+        }
+
+        return $this->render('formation/formationCreate.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
     #[Route('/formation', name: 'app_formation')]
     public function index(EntityManagerInterface $entityManager): Response
