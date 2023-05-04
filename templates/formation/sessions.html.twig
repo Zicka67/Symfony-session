@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Il y a {{ sessions|length }} Sessions{% endblock %}
+{% block title %} Liste des sessions {% endblock %}
 
 {% block body %}
+{# <h1>Il y a {{ sessions|length }} Sessions</h1> #}
   <div class="basic-tab">
     <table>
       <thead>
         <tr>
-          <th>Titre de la session</th>
+          <th>Titre de la session ({{ sessions|length }})</th>
           <th>Détails</th>
         </tr>
       </thead>
