@@ -65,7 +65,7 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('app_showDetailsSession', ['id' => $sessionId]);
     }
 
-    #[Route('/session/create', name: 'app_createSession')]
+    #[Route('/session/create', name: 'app_sessionCreate')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $session = new Session();
