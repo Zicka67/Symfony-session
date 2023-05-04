@@ -247,12 +247,8 @@ label {
   font-weight: bold;
 }
 
-/* ************************************************ */
-
-
-/* Styling for the submit button */
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: var(--color-accent);
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -261,7 +257,7 @@ button[type="submit"] {
   margin-top: 1rem;
 }
 
-
+/* ************************************************ */
 
 
 /* Style pour le buton menu mobile */
