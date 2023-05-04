@@ -13,16 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModuleController extends AbstractController
 {
-        #[Route('/module', name: 'app_module')]
-        public function index(ModulesRepository $modulesRepository): Response
-        {
-            $modules = $modulesRepository->findAll();
+        // #[Route('/module', name: 'app_module')]
+        // public function index(ModulesRepository $modulesRepository): Response
+        // {
+        //     $modules = $modulesRepository->findAll();
             
-            return $this->render('module/index.html.twig', [
-                'controller_name' => 'ModuleController',
-                'modules' => $modules,
-            ]);
-        }
+        //     return $this->render('module/index.html.twig', [
+        //         'controller_name' => 'ModuleController',
+        //         'modules' => $modules,
+        //     ]);
+        // }
 
     #[Route('/modules/new', name: 'modules_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -48,15 +48,16 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    // #[Route('/module', name: 'modules_show', methods: ['GET'])]
-    // public function show(Modules $modules, EntityManagerInterface $entityManager): Response
-    // {
-    //     $modules = $entityManager->getRepository(Modules::class)->findAll();
-    
-    //     return $this->render('module/index.html.twig', [
-    //         'modules' => $modules,
-    //     ]);
-    // }
+    #[Route('/module', name: 'app_module', methods: ['GET'])]
+    public function show(EntityManagerInterface $entityManager): Response
+    {
+        $modules = $entityManager->getRepository(Modules::class)->findAll();
+
+        return $this->render('module/index.html.twig', [
+            'modules' => $modules,
+        ]);
+    }
+
 }
 
 
