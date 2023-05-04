@@ -39,13 +39,16 @@ class SessionType extends AbstractType
         ->add('formation', EntityType::class, [
             'label' => 'Formation',
             'class' => Formation::class,
-            'choice_label' => 'title',
+            'choice_label' => 'title_formation',
             'placeholder' => 'Choisissez une formation',
         ])
         ->add('former', EntityType::class, [
             'label' => 'Formateur',
             'class' => Former::class,
-            'choice_label' => 'name',
+            //Pour avoir le nom ET le prénom sur la même ligne
+            'choice_label' => function ($former) {
+                return $former->getFirstName() . ' ' . $former->getLastName();
+            },
             'placeholder' => 'Choisissez un formateur',
         ]);
     }
