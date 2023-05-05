@@ -25,9 +25,10 @@ class SessionController extends AbstractController
     }
 
     #[Route('/sessions/{id}', name: 'app_showDetailsSession')]
-    public function showDetailsSession($id, EntityManagerInterface $entityManager, StudentRepository $studentRepository): Response
+    public function showDetailsSession($id, SessionRepository $sessionRepository, StudentRepository $studentRepository): Response
     {
-        $session = $entityManager->getRepository(Session::class)->find($id);
+        // $session = $entityManager->getRepository(Session::class)->find($id); ou
+        $session = $sessionRepository->find($id);
         $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
         // dd($studentsNotInSession);
         return $this->render('formation/detailSession.html.twig', [
