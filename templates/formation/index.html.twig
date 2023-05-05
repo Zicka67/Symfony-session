@@ -7,7 +7,7 @@
 
         <table>
           <thead>
-            {% if is_granted('[ROLE_USER]') %}
+            {% if 'ROLE_ADMIN' in app.user.roles %}
             <td class="backgreen"><a href="{{ path('app_formationCreate') }}">Ajouter une formation</a></td>
             {% endif %}
             {# <td class="backred"><a href="{{ path('app_formationCreate') }}">Supprimer une formation</a></td> #}
@@ -21,7 +21,7 @@
               <tr>
                 <td class="firstTd">{{ formation.titleFormation }}</td>
                 <td><a href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a> 
-                {% if is_granted('[ROLE_USER]') %}
+                  {% if 'ROLE_ADMIN' in app.user.roles %}
                 <a class="red" href="{{ path('app_formationDelete', {'id': formation.id})   }}">Supprimer</a></td>
                 {% endif %}
               </tr>

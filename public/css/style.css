@@ -65,12 +65,20 @@ span {
       color: var(--color-green);
   }
 
+  .backgreen {
+    background-color: var(--color-green);
+  }
+
   .green:visited {
     color: var(--color-green);
 }
 
   .red {
     color: var(--color-red);
+  }
+
+  .backred {
+    background-color: var(--color-red);
   }
 
   .red:visited {

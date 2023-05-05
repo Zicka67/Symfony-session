@@ -7,7 +7,7 @@
   <div class="basic-tab">
     <table>
       <thead>
-        {% if is_granted('[ROLE_USER]') %} 
+        {% if 'ROLE_ADMIN' in app.user.roles %}
         <td class="backgreen"><a href="{{ path('app_sessionCreate') }}">Ajouter une session</a></td>
         {% endif %}
         <tr>
@@ -20,7 +20,7 @@
           <tr>
             <td class="firstTd">{{ session.titlesection }}</td>
             <td><a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">Voir les détails</a>
-            {% if is_granted('[ROLE_USER]') %} 
+              {% if 'ROLE_ADMIN' in app.user.roles %}
             <a class="red" href="{{ path('app_sessionDelete', {'id': session.id}) }}">Supprimer</a></td>
             {% endif %}
           </tr>

@@ -42,6 +42,7 @@
   </div>
 
   {# tableau student #}
+  
   {% if session.students is not empty %}
     <div class="basic-tab">
 
@@ -56,8 +57,14 @@
           {# On parcours la collections de stagiaire(students) de session avec une condition pour vérifier si ell eest vide #}
           {% for student in session.students %}
             <tr>
+              {% if 'ROLE_ADMIN' in app.user.roles %}
               <td><a class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
               <td><a class="reset red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" >Supprimer</a></td>
+              {% else %}
+              <td><p class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</p></td>
+              <td><p class="reset red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" ></p></td>
+
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>
@@ -67,6 +74,7 @@
     </div>
   {% endif %}
 
+  {% if 'ROLE_ADMIN' in app.user.roles %}
   {% if studentsNotInSession is defined and studentsNotInSession is not empty %}
   <div class="basic-tab">
     <table class="tabDetailSession">
@@ -86,6 +94,7 @@
   </div>
   {% else %}
     <p>Aucun étudiant libre.</p>
+  {% endif %}
   {% endif %}
 
 </div>
