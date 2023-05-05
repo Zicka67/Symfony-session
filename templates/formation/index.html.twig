@@ -7,17 +7,23 @@
 
         <table>
           <thead>
-            <td><a href="{{ path('app_formationCreate') }}">Ajouter une formation</a></td>
+            {% if is_granted('[ROLE_USER]') %}
+            <td class="backgreen"><a href="{{ path('app_formationCreate') }}">Ajouter une formation</a></td>
+            {% endif %}
+            {# <td class="backred"><a href="{{ path('app_formationCreate') }}">Supprimer une formation</a></td> #}
             <tr>
               <th>Titre de la formation ({{ formations|length }})</th>
               <th>Sessions</th>
             </tr>
-          </thead>
+          </thead>  
           <tbody>
             {% for formation in formations %}
               <tr>
                 <td class="firstTd">{{ formation.titleFormation }}</td>
-                <td><a href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a></td>
+                <td><a href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a> 
+                {% if is_granted('[ROLE_USER]') %}
+                <a class="red" href="{{ path('app_formationDelete', {'id': formation.id})   }}">Supprimer</a></td>
+                {% endif %}
               </tr>
             {% endfor %}
           </tbody>
