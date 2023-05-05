@@ -7,6 +7,7 @@ use App\Entity\Student;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,4 +86,20 @@ class SessionController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/session/{id}/delete', name: 'app_sessionDelete')]
+    public function deleteSession($id, EntityManagerInterface $entityManager, SessionRepository $sessionRepository): Response
+    {
+        $session = $sessionRepository->find($id);
+        
+        if (!$session) {
+            throw $this->createNotFoundException('La session avec l\'id ' . $id . ' n\'a pas été trouvée.');
+        }
+    
+        $entityManager->remove($session);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('formation_sessions', ['id' => $session->getFormation()->getId()]);
+    }
+    
 }
