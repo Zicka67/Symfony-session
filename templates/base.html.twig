@@ -27,7 +27,7 @@
                     <li><a href="{{ path('app_programme') }}">Programmes</a></li>
                     <li><a href="{{ path('app_module') }}">Modules</a></li>
                     {% else %}
-                        {# {% if is_granted('IS_AUTHENTIC{# pour filtrer sur la verification du mail (true/false) #}ATED_FULLY') %} pour filtrer sur la connection de l'user #}
+                        {# {% if is_granted('IS_AUTHENTICATED_FULLY') %} pour filtrer sur la connection de l'user #}
                         {% if app.user.isVerified %} {# pour filtrer sur la verification du mail (true/false) #}
                         <li><a href="">Test isVerified</a></li>
                         <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
