@@ -6,6 +6,7 @@ use App\Entity\Session;
 use App\Entity\Formation;
 use App\Form\FormationType;
 use App\Repository\StudentRepository;
+use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +70,21 @@ class FormationController extends AbstractController
             
          
         ]);
+    }
+
+    #[Route('/formation/{id}/delete', name: 'app_formationDelete')]
+    public function deleteFormation($id, EntityManagerInterface $entityManager, FormationRepository $sessionRepository): Response
+    {
+        $formation = $sessionRepository->find($id);
+        
+        if (!$formation) {
+            throw $this->createNotFoundException('La formation avec l\'id ' . $id . ' n\'a pas été trouvée.');
+        }
+    
+        $entityManager->remove($formation);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_formation', ['id' => $formation->getId()]);
     }
 
 
