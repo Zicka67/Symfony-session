@@ -19,23 +19,28 @@
 
             <nav>
                 <ul>
-                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li><a href="{{ path('app_formation') }}">Formations</a>
-                    {% if is_granted('[ROLE_USER]') %} {# pour filtrer sur le role #}
-                    <li><a href="{{ path('app_listStudients') }}">Etudiants</a></li>
-                    <li><a href="{{ path('app_former') }}">Formateurs</a></li>
-                    <li><a href="{{ path('app_programme') }}">Programmes</a></li>
-                    <li><a href="{{ path('app_module') }}">Modules</a></li>
-                    {% else %}
-                        {# {% if is_granted('IS_AUTHENTICATED_FULLY') %} pour filtrer sur la connection de l'user #}
-                        {% if app.user.isVerified %} {# pour filtrer sur la verification du mail (true/false) #}
-                        <li><a href="">Test isVerified</a></li>
-                        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                        {% else %}
+                    {# SI pas connecté  #}
+                    {% if not app.user %}
+                        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                        <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
                         <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                    {% else %}
+                    {# SINON #}
+                        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                        <li><a href="{{ path('app_formation') }}">Formations</a></li>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                        {# SI user = role admin #}
+                            <li><a href="{{ path('app_listStudients') }}">Etudiants</a></li>
+                            <li><a href="{{ path('app_former') }}">Formateurs</a></li>
+                            <li><a href="{{ path('app_programme') }}">Programmes</a></li>
+                            <li><a href="{{ path('app_module') }}">Modules</a></li>
                         {% endif %}
+                        {# SINON #}
+                        <li><a href="{{ path('app_userShow') }}">Profil</a></li>
+                        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                     {% endif %}
                 </ul>
+            </nav>
             </nav>
 
         </header>
