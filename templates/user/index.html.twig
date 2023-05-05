@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user.pseudo }} {% endblock %}
+
+{% block body %}
+
+<div class="basic-tab">
+    <table class="tabDetailSession">
+      <thead>
+        <tr>
+          <th colspan="2">Profil de {{ app.user.pseudo }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pseudo :</td>
+          <td>{{ app.user.pseudo }}</td>
+        </tr>
+        <tr>
+          <td>Email :</td>
+          <td>{{ app.user.email }}</td>
+        </tr>
+        <tr>
+            <td>Rôle :</td>
+            {# |json_encode pour passer un array en string #}
+            <td>{{ app.user.roles|json_encode }}</td>
+        </tr>
+        <tr>
+            <td>Verified :</td>
+            {# ? 'Yes' : 'No'  ( ternaire ) pour éviter d'avoir 0 ou 1 #}
+            <td>{{ app.user.isVerified ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
