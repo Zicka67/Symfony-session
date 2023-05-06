@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Form\SessionType;
+use App\Repository\ModulesRepository;
 use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
@@ -25,15 +26,18 @@ class SessionController extends AbstractController
     }
 
     #[Route('/sessions/{id}', name: 'app_showDetailsSession')]
-    public function showDetailsSession($id, SessionRepository $sessionRepository, StudentRepository $studentRepository): Response
+    public function showDetailsSession($id, ModulesRepository $modulesRepository, SessionRepository $sessionRepository, StudentRepository $studentRepository): Response
     {
         // $session = $entityManager->getRepository(Session::class)->find($id); ou
         $session = $sessionRepository->find($id);
         $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
+        $modules = $modulesRepository->getSessionModules($id);
         // dd($studentsNotInSession);
+        //  dd($modules);
         return $this->render('formation/detailSession.html.twig', [
             'session' => $session,
-            'studentsNotInSession' => $studentsNotInSession
+            'studentsNotInSession' => $studentsNotInSession,
+            'modules' => $modules
         ]);
     }
 
