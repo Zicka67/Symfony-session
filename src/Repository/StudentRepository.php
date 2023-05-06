@@ -91,20 +91,21 @@ class StudentRepository extends ServiceEntityRepository
 }
 
 
-    public function findStudentsNotInSession($sessionId)
+    public function findStudentsNotInSession($sessionId)   // a modifier
 {
     $entityManager = $this->getEntityManager();
 
     $query = $entityManager->createQuery(
-    'SELECT s
-            FROM App\Entity\Student s
-            WHERE NOT EXISTS (
-                SELECT 1
-                FROM App\Entity\Session ss
-                JOIN ss.students st
-                WHERE st.id = s.id
-            )'
-    );
+        'SELECT s
+        FROM App\Entity\Student s
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM App\Entity\Session ss
+            JOIN ss.students st
+            WHERE st.id = s.id
+            AND ss.id = :sessionId
+        )'
+    )->setParameter('sessionId', $sessionId);
 
     return $query->getResult();
 }
