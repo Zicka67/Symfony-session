@@ -39,6 +39,23 @@ class ModulesRepository extends ServiceEntityRepository
         }
     }
 
+    public function getSessionModules ( int $id): array 
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+        'SELECT m
+                FROM App\Entity\Modules m, App\Entity\Programme p
+                WHERE (
+                   p.modules_id = m.id AND p.session_id = :id
+                )'
+        );
+
+        $query->setParameter("id", $id);
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Modules[] Returns an array of Modules objects
 //     */
