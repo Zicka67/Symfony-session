@@ -97,6 +97,35 @@
   {% endif %}
   {% endif %}
 
+  {% if modules is defined and modules is not empty %}
+  {% for module in modules %}
+    <div class="basic-tab">
+        <table class="tabDetailSession">
+            <thead>
+                <tr>
+                    <th>Module :</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="addingTd">Nom du module : {{ module.titleModules }}</td>
+                </tr> 
+                <tr>
+                    <td class="addingTd">De la category : {{ module.category.titleCategory }}</td>
+                </tr> 
+                {% for programme in module.programmes %}
+                <tr>
+                    <td class="addingTd">Durée du programme : {{ programme.duree }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+{% endfor %}
+{% else %}
+  <p>Aucun module programmé.</p>
+{% endif %}
 </div>
 
 {# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a> #}
