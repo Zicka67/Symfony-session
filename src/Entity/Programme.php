@@ -22,6 +22,37 @@ class Programme
     #[ORM\ManyToOne(inversedBy: 'programmes')]
     private ?Modules $Modules = null;
 
+    #[ORM\Column]
+    private ?int $modules_id = null;
+  
+    #[ORM\Column]
+    private ?int $session_id = null;
+
+    public function getModulesId(): ?int
+    {
+        return $this->modules_id;
+    }
+
+    public function setModulesId(int $modules_id): self
+    {
+        $this->modules_id = $modules_id;
+
+        return $this;
+    }
+
+    public function getSessionId(): ?int
+    {
+        return $this->session_id;
+    }
+
+    public function setSessionId(int $session_id): self
+    {
+        $this->session_id = $session_id;
+
+        return $this;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

@@ -19,14 +19,15 @@ class FormationController extends AbstractController
     public function showSessions($id, EntityManagerInterface $entityManager): Response
     {
         $formation = $entityManager->getRepository(Formation::class)->find($id);
+        // $programmes = $entityManager->getRepository(Programme::class)->findBy(["session_id" => $id]);
 
         if (!$formation) {
             throw $this->createNotFoundException('La formation' . $id . ' n\'a pas été trouvée.');
         }
 
-        $session = $formation->getSessions();
+        $sessions = $formation->getSessions();
         return $this->render('formation/sessions.html.twig', [
-            'sessions' => $session,
+            'sessions' => $sessions,
             'formation' => $formation,
         ]);
     }  

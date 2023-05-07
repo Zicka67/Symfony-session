@@ -10,13 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FormerController extends AbstractController
 {
-    #[Route('/former', name: 'app_former')]
-    public function index(): Response
-    {
-        return $this->render('former/index.html.twig', [
-            'controller_name' => 'FormerController',
-        ]);
-    }
+    // #[Route('/former', name: 'app_former')]
+    // public function index(): Response
+    // {
+    //     return $this->render('former/index.html.twig', [
+    //         'controller_name' => 'FormerController',
+    //     ]);
+    // }
 
     #[Route('/former', name: 'app_former')]
     public function formateursList(EntityManagerInterface $entityManager): Response
@@ -27,4 +27,5 @@ class FormerController extends AbstractController
             'formers' => $former,
         ]);
     }
+
 }
