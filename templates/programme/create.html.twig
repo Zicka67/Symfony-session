@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un programme{% endblock %}
+
+{% block body %}
+    <h1>Création d'un programme</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.session) }}
+    
+    {# {{ form_row(form.module) }} #}
+    
+    {{ form_row(form.duree) }}
+    
+    {{ form_widget(form) }}
+    
+    {{ form_end(form) }}
+{% endblock %}
