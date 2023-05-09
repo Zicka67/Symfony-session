@@ -30,7 +30,7 @@ class Programme
 
     public function getModulesId(): ?int
     {
-        return $this->modules_id;
+        return $this->Modules ? $this->Modules->getId() : null;
     }
 
     public function setModulesId(int $modules_id): self
@@ -42,7 +42,7 @@ class Programme
 
     public function getSessionId(): ?int
     {
-        return $this->session_id;
+        return $this->Session ? $this->Session->getId() : null;
     }
 
     public function setSessionId(int $session_id): self

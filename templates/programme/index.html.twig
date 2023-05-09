@@ -12,7 +12,7 @@
             <th colspan="2">Programme {{ programme.id }}</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody> 
         <tr>
             <td class="text-center">Nom du programme :</td>
             <td class="margin text-center">{{ programme.session.getTitleSection }}</td>
@@ -24,11 +24,11 @@
         <tr>
           <td class="text-center">durée :</td>
           <td class="reset text-center">{{ programme.duree }} jours</td>
-      </tr> 
+        </tr> 
         </tbody>
     </table><br>
     {% endfor %}
-</div>
+  </div>
 
 {% endblock %}
 

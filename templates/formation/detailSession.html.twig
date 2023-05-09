@@ -97,11 +97,11 @@
   {% endif %}
   {% endif %}
 
-  {% if modules is defined and modules is not empty %}
+  {# {% if modules is defined and modules is not empty %}
   {% for module in modules %}
     <div class="basic-tab">
         <table class="tabDetailSession">
-            <thead>
+            <thead>            
                 <tr>
                     <th>Module :</th>
                 </tr>
@@ -114,19 +114,43 @@
                     <td class="addingTd">De la category : {{ module.category.titleCategory }}</td>
                 </tr> 
                 {% for programme in module.programmes %}
+                {# Pour empêcher d'avoir 2 durée #}
+                {# {% if loop.first %} 
                 <tr>
-                    <td class="addingTd">Durée du programme : {{ programme.duree }}</td>
+                    <td class="addingTd">Durée du programme : {{ programme.duree }} jours</td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <br>
-{% endfor %}
+  {% endfor %}
 {% else %}
   <p>Aucun module programmé.</p>
 {% endif %}
+</div>  #}
+
+{% if programmes is not empty %}
+<div class="basic-tab">
+    <table class="tabDetailSession">
+        <thead>
+            <tr>
+                <th colspan="2">Modules pour cette session</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for programme in programmes %}
+            <tr>
+                <td>{{ programme.modules.titleModules }}</td>
+                <td>{{ programme.duree }} jours</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+{% endif %}
+
 
 {# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a> #}
 {# <br>

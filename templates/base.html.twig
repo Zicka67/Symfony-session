@@ -31,9 +31,9 @@
                         {% if 'ROLE_ADMIN' in app.user.roles %}
                         {# SI user = role admin #}
                             <li><a href="{{ path('app_listStudients') }}">Etudiants</a></li>
-                            <li><a href="{{ path('app_former') }}">Formateurs</a></li>
-                            <li><a href="{{ path('app_programme') }}">Programmes</a></li>
-                            <li><a href="{{ path('app_module') }}">Modules</a></li>
+                            {# <li><a href="{{ path('app_former') }}">Formateurs</a></li> #}
+                            {# <li><a href="{{ path('app_programme') }}">Programmes</a></li> #}
+                            {# <li><a href="{{ path('app_module') }}">Modules</a></li> #}
                         {% endif %}
                         {# SINON #}
                         <li><a href="{{ path('app_userShow') }}">Profil</a></li>
