@@ -42,11 +42,10 @@
   </div>
 
   {# tableau student #}
-  
+  <div class="tabDetailSessionFlex">
   {% if session.students is not empty %}
     <div class="basic-tab">
-
-      <table class="tabDetailSession">
+      <table class="tabDetailSession1">
 
         <thead>
           <tr>
@@ -58,93 +57,113 @@
           {% for student in session.students %}
             <tr>
               {% if 'ROLE_ADMIN' in app.user.roles %}
-              <td><a class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
-              <td><a class="reset red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" >Supprimer</a></td>
-              {% else %}
-              <td><p class="reset" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</p></td>
-              <td><p class="reset red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" ></p></td>
+              <div class="flex-container">
+                <div>
+                  <td><a class="" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></td>
+                </div>
+              {# ICI on ajoute confirm(), fonctione native JS pour afficher un message d4erreur #}
+                <div>
+                  <td><a class="btnRed" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}"  onclick="return confirm('Etes-vous sûr de vouloir supprimer ?')">Supprimer</a></td>
+                </div>
+              </div>
+                {% else %}
+              <td><p class="" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</p></td>
+              <td><p class="red" href="{{ path('app_removeStudentFromSession', {'sessionId': session.id, 'studentId': student.id}) }}" ></p></td>
 
               {% endif %}
             </tr>
           {% endfor %}
         </tbody>
-
       </table>
-
     </div>
   {% endif %}
 
   {% if 'ROLE_ADMIN' in app.user.roles %}
-  {% if studentsNotInSession is defined and studentsNotInSession is not empty %}
-  <div class="basic-tab">
-    <table class="tabDetailSession">
-      <thead>
-        <tr>
-          <th >Étudiants non inscrits ({{ studentsNotInSession|length }}) :</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for student in studentsNotInSession %}
-        <tr>
-          <td class="addingTd">{{ student.firstName }} {{ student.lastName }} <a class="green" href="{{ path('app_addStudentToSession', {'id': session.id, 'studentId': student.id}) }}">Ajouter</a></td>
-        </tr> 
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-    <p>Aucun étudiant libre.</p>
-  {% endif %}
-  {% endif %}
-
-  {# {% if modules is defined and modules is not empty %}
-  {% for module in modules %}
+    {% if studentsNotInSession is defined and studentsNotInSession is not empty %}
     <div class="basic-tab">
-        <table class="tabDetailSession">
-            <thead>            
-                <tr>
-                    <th>Module :</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="addingTd">Nom du module : {{ module.titleModules }}</td>
-                </tr> 
-                <tr>
-                    <td class="addingTd">De la category : {{ module.category.titleCategory }}</td>
-                </tr> 
-                {% for programme in module.programmes %}
-                {# Pour empêcher d'avoir 2 durée #}
-                {# {% if loop.first %} 
-                <tr>
-                    <td class="addingTd">Durée du programme : {{ programme.duree }} jours</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
+      <table class="tabDetailSession2">
+        <thead>
+          <tr>
+            <th>Étudiants non inscrits ({{ studentsNotInSession|length }}) :</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in studentsNotInSession %}
+          <tr>
+            <td class="addingTd">
+              <div class="flex-container">
+                <div>
+                  <span class="flex-grow">{{ student.firstName }} {{ student.lastName }}</span>
+                </div>
+                <div>
+                  <a class="btn btnMargin" href="{{ path('app_addStudentToSession', {'id': session.id, 'studentId': student.id}) }}">Ajouter</a>
+                </div>
+              </div>
+            </td>
+          </tr> 
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <br>
-  {% endfor %}
-{% else %}
-  <p>Aucun module programmé.</p>
-{% endif %}
-</div>  #}
+    {% else %}
+      <p>Aucun étudiant libre.</p>
+    {% endif %}
+  {% endif %}
+</div>
 
 {% if programmes is not empty %}
 <div class="basic-tab">
     <table class="tabDetailSession">
         <thead>
             <tr>
-                <th colspan="2">Modules pour cette session</th>
+                <th colspan="3">Modules pour cette session</th>
             </tr>
         </thead>
         <tbody>
+            {# On créer avec twig une variable totalDurée qu'on met a 0  #}
+            {% set totalDuree = 0 %}
             {% for programme in programmes %}
+            {# On ajoute la duree au total #}
+            {% set totalDuree = totalDuree + programme.duree %}
             <tr>
                 <td>{{ programme.modules.titleModules }}</td>
                 <td>{{ programme.duree }} jours</td>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <td>
+                    <a href="{{ path('app_removeProgramFromSession', {'sessionId': session.id, 'programId': programme.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ?')" class="btnRed">Déprogrammer</a>
+                </td>
+                {% endif %}
             </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="2">Total des modules : </th>
+                <th>{{ totalDuree }} jours</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endif %}
+
+
+{% if programmesNotInSession is not empty %}
+<div class="basic-tab">
+    <table class="tabDetailSession">
+        <thead>
+            <tr>
+                <th colspan="3">Liste des modules disponibles ({{ programmesNotInSession|length }}) :</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for programme in programmesNotInSession %}
+            <tr>
+                <td>{{ programme.modules.titleModules }}</td>
+                <td>{{ programme.duree }} jours</td>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <td><a href="{{ path('add_programme_to_session', { 'session_id': session.id, 'programme_id': programme.id }) }}" class="btn">Programmer</a></td>
+                {% endif %}
+              </tr>
             {% endfor %}
         </tbody>
     </table>

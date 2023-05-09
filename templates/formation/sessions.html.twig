@@ -4,12 +4,14 @@
 
 {% block body %}
 {# <h1>Il y a {{ sessions|length }} Sessions</h1> #}
+{% if 'ROLE_ADMIN' in app.user.roles %}
+<div class="add">
+  <a href="{{ path('app_sessionCreate') }}" class="btn">Ajouter une session</a>
+</div>
+        {% endif %}
   <div class="basic-tab">
     <table>
       <thead>
-        {% if 'ROLE_ADMIN' in app.user.roles %}
-        <td class="backgreen"><a href="{{ path('app_sessionCreate') }}">Ajouter une session</a></td>
-        {% endif %}
         <tr>
           <th>Titre des sessions ({{ sessions|length }})</th>
           <th>Détails</th>  
@@ -19,9 +21,9 @@
         {% for session in sessions %}
           <tr>
             <td class="firstTd">{{ session.titlesection }}</td>
-            <td><a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">Voir les détails</a>
+            <td><a class="btnBlue" href="{{ path('app_showDetailsSession', {'id': session.id}) }}">Voir les détails</a>
               {% if 'ROLE_ADMIN' in app.user.roles %}
-            <a class="red" href="{{ path('app_sessionDelete', {'id': session.id}) }}">Supprimer</a></td>
+            <a class="red btnRed" href="{{ path('app_sessionDelete', {'id': session.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ?')">Supprimer</a></td>
             {% endif %}
           </tr>
         {% endfor %}

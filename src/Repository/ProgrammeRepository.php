@@ -39,6 +39,19 @@ class ProgrammeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findProgrammesNotInSession(int $sessionId): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Programme p
+            WHERE p.session_id IS NULL OR p.session_id != :session_id'
+        )->setParameter('session_id', $sessionId);
+
+        return $query->getResult();
+    }   
+
 //    /**
 //     * @return Programme[] Returns an array of Programme objects
 //     */

@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use App\Repository\ModulesRepository;
 use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
+use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +28,15 @@ class SessionController extends AbstractController
     }
 
     #[Route('/sessions/{id}', name: 'app_showDetailsSession')]
-    public function showDetailsSession($id, EntityManagerInterface $entityManager,ModulesRepository $modulesRepository, SessionRepository $sessionRepository, StudentRepository $studentRepository): Response
+    public function showDetailsSession($id, EntityManagerInterface $entityManager,ModulesRepository $modulesRepository, SessionRepository $sessionRepository, StudentRepository $studentRepository, ProgrammeRepository $programmeRepository): Response
     {
         // $session = $entityManager->getRepository(Session::class)->find($id); ou
         $session = $sessionRepository->find($id);
         $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
         $modules = $modulesRepository->getSessionModules($id);
         $programmes = $entityManager->getRepository(Programme::class)->findBy(['Session' => $id]);
+        $allProgrammes = $entityManager->getRepository(Programme::class)->findAll();
+        $programmesNotInSession = $programmeRepository->findProgrammesNotInSession($id);
 
         // dd($studentsNotInSession);
         //  dd($modules);
@@ -41,7 +44,9 @@ class SessionController extends AbstractController
             'session' => $session,
             'studentsNotInSession' => $studentsNotInSession,
             'modules' => $modules,
-            'programmes' => $programmes
+            'programmes' => $programmes,    
+            'allProgrammes' => $allProgrammes,
+            'programmesNotInSession' => $programmesNotInSession
         ]);
     }
 
@@ -96,6 +101,37 @@ class SessionController extends AbstractController
         ]);
     }
 
+    #[Route('/session/{session_id}/add-programme/{programme_id}', name: 'add_programme_to_session')]
+    public function addProgrammeToSession(int $session_id, int $programme_id, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager): Response
+    {
+        $session = $sessionRepository->find($session_id);
+        $programme = $programmeRepository->find($programme_id);
+    
+        if ($session && $programme) {
+            // Associez le programme à la session
+            $session->addProgramme($programme);
+            $entityManager->flush();
+        }
+    
+        return $this->redirectToRoute('app_showDetailsSession', ['id' => $session_id]);
+    }
+
+    #[Route('/session/{sessionId}/remove-program/{programId}', name: 'app_removeProgramFromSession')]
+    public function removeProgramFromSession(int $sessionId, int $programId, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager): Response
+    {
+        $session = $sessionRepository->find($sessionId);
+        $programme = $programmeRepository->find($programId);
+
+        if ($session && $programme) {
+            
+            $session->removeProgramme($programme);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_showDetailsSession', ['id' => $sessionId]);
+    }
+
+
     #[Route('/session/{id}/delete', name: 'app_sessionDelete')]
     public function deleteSession($id, EntityManagerInterface $entityManager, SessionRepository $sessionRepository): Response
     {
@@ -110,5 +146,16 @@ class SessionController extends AbstractController
     
         return $this->redirectToRoute('formation_sessions', ['id' => $session->getFormation()->getId()]);
     }
+
+    // #[Route('/formation', name: 'programmes_list', methods: ['GET'])]
+    // public function list(EntityManagerInterface $entityManager): Response
+    // {
+    //     $programmes = $entityManager->getRepository(Programme::class)->findAll();
+
+    //     return $this->render('formation/detailSession.html.twig', [
+    //         'programmes' => $programmes,
+    //     ]);
+    // }
+    
     
 }

@@ -4,10 +4,34 @@
 
 {% block body %}
 
-<ul>
-    {% for student in students %}
-    <li><a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></li>   
-    {% endfor %}
-</ul>
+{% if students is defined and students is not empty %}
+    <div class="basic-tab"> 
+      <table class="tabDetailSession3">
+        <thead>
+          <tr>
+            <th>Étudiants ({{ students|length }}) :</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td class="addingTd2">
+              <div class="flex-container">
+                <div>
+                    <a href="{{ path('app_showDetailsStudent', {'id': student.id}) }}"><span> {{ student.firstName }} {{ student.lastName }}</span></a>
+                </div>
+                <div>
+                  <a class="btn btnMargin" href="{{ path('app_showDetailsStudent', {'id': student.id}) }}">Voir les détails</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% else %}
+    <p>Aucun étudiant.</p>
+{% endif %}
 
 {% endblock %}

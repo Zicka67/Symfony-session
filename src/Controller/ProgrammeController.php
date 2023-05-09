@@ -21,7 +21,7 @@ class ProgrammeController extends AbstractController
         ]);
     }
 
-    #[Route('/programme', name: 'app_programme', methods: ['GET'])]
+    #[Route('/programme', name: 'app_programme')]
     public function show(EntityManagerInterface $entityManager): Response
     {
         $programmes = $entityManager->getRepository(Programme::class)->findAll();

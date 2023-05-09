@@ -3,12 +3,14 @@
 {% block title %} Les formations{% endblock %}
 
 {% block body %}
+<div class="add">
+  <a href="{{ path('app_formationCreate') }}" class="btn">Ajouter une formation</a>
+</div>
       <div class="basic-tab">
 
         <table>
           <thead>
             {% if 'ROLE_ADMIN' in app.user.roles %}
-            <td class="backgreen"><a href="{{ path('app_formationCreate') }}">Ajouter une formation</a></td>
             {% endif %}
             {# <td class="backred"><a href="{{ path('app_formationCreate') }}">Supprimer une formation</a></td> #}
             <tr>
@@ -20,9 +22,9 @@
             {% for formation in formations %}
               <tr>
                 <td class="firstTd">{{ formation.titleFormation }}</td>
-                <td><a href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a> 
+                <td><a class="btnBlue" href="{{ path('formation_sessions', {'id': formation.id}) }}">Voir les sessions</a> 
                   {% if 'ROLE_ADMIN' in app.user.roles %}
-                <a class="red" href="{{ path('app_formationDelete', {'id': formation.id})   }}">Supprimer</a></td>
+                <a class="btnRed" href="{{ path('app_formationDelete', {'id': formation.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ?')">Supprimer</a></td>
                 {% endif %}
               </tr>
             {% endfor %}
