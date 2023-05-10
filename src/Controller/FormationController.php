@@ -45,6 +45,8 @@ class FormationController extends AbstractController
             $entityManager->persist($formation);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La formation a été ajoutée avec succès.');
+
             return $this->redirectToRoute('app_formation', ['id' => $formation->getId()]);
         }
 
@@ -81,6 +83,9 @@ class FormationController extends AbstractController
         if (!$formation) {
             throw $this->createNotFoundException('La formation avec l\'id ' . $id . ' n\'a pas été trouvée.');
         }
+
+        $this->addFlash('success', 'La session a été supprimée avec succès.');
+
     
         $entityManager->remove($formation);
         $entityManager->flush();

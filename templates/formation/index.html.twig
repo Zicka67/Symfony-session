@@ -3,6 +3,16 @@
 {% block title %} Les formations{% endblock %}
 
 {% block body %}
+
+ {# Afficher les messages flash #}
+ {% for label, messages in app.flashes %}
+ {% for message in messages %}
+     <div class="flash-message {{ label }}">
+         {{ message }}
+     </div>
+ {% endfor %}
+{% endfor %}
+
 <div class="add">
   <a href="{{ path('app_formationCreate') }}" class="btn">Ajouter une formation</a>
 </div>
@@ -36,4 +46,8 @@
 <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('script/script.js') }}"></script>
 {% endblock %}

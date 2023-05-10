@@ -3,6 +3,13 @@
 {% block title %}Création d'une formation{% endblock %}
 
 {% block body %}
+{# Afficher les messages flash #}
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+<div class="flash-message {{ label }}">
+    {{ message }}
+</div>
+{% endfor %}
   {{ form_start(form) }}
 
   {{ form_label(form.title_formation) }}
@@ -13,4 +20,8 @@
   <button type="submit">Créer</button>
 
   {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('script/script.js') }}"></script>
 {% endblock %}

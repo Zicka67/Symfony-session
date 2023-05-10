@@ -3,6 +3,13 @@
 {% block title %} Liste des sessions {% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+<div class="flash-message {{ label }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endfor %}
 {# <h1>Il y a {{ sessions|length }} Sessions</h1> #}
 {% if 'ROLE_ADMIN' in app.user.roles %}
 <div class="add">
@@ -35,4 +42,8 @@
   {# <br>
   <a href="{{ path('app_home') }}">Retour à l'accueil</a> #}
 
-{% endblock %}      
+{% endblock %}  
+
+{% block javascripts %}
+    <script src="{{ asset('script/script.js') }}"></script>
+{% endblock %}

@@ -358,6 +358,7 @@ button[type="submit"] {
   text-decoration: none;
   transition-duration: 0.4s;
   border-radius: 4px;
+  transition: 0.5s;
 }
 
 .btnMargin {
@@ -366,6 +367,7 @@ button[type="submit"] {
 
 .btn:hover {
   background-color: rgb(112, 216, 112);
+  
 }
 
 .btnRed {
@@ -381,10 +383,12 @@ button[type="submit"] {
   text-decoration: none;
   transition-duration: 0.4s;
   border-radius: 4px;
+  transition: 0.5s;
 }
 
 .btnRed:hover {
   background-color: rgb(189, 97, 97);
+  transition: 0.5s;
 }
 
 .btnBlue {
@@ -400,10 +404,12 @@ button[type="submit"] {
   text-decoration: none;
   transition-duration: 0.4s;
   border-radius: 4px;
+  transition: 0.5s;
 }
 
 .btnBlue:hover {
   background-color: #7e97e0;
+  transition: 0.5s;
 }
 
 
@@ -427,6 +433,7 @@ button[type="submit"] {
 /* ************************************************ */
 
 
+
 /* Style pour le buton menu mobile */
 .icon {
     display: none;
@@ -436,6 +443,63 @@ button[type="submit"] {
     padding: 15px;
     cursor: pointer;
 }
+
+/* ********************** MESSAGE FLASH ************************** */
+
+.flash-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+.flash-message.warning {
+  background-color: #f57f17;
+}
+
+.flash-message.error {
+  background-color: #f44336;
+}
+
+.flash-message.hidden {
+  opacity: 0;
+}
+
+/* ********************** SCROLL TO TOP **************************** */
+
+
+.btn-scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  background: var(--color-accent);
+  color: #f80101;
+  width: 3vw;
+  height: 3vw;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.btn-scroll-top:hover {
+  background: var(--color-secondary);
+  color: #ef0d0d;
+}
+
+.btn-scroll-top.show {
+  display: block;
+}
+
+
 
 
 /* ************************************************** */

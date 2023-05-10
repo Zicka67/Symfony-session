@@ -93,6 +93,9 @@ class SessionController extends AbstractController
             $entityManager->persist($session);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La session a été ajoutée avec succès.');
+
+
             return $this->redirectToRoute('formation_sessions', ['id' => $session->getFormation()->getId()]);
         }
 
@@ -140,6 +143,9 @@ class SessionController extends AbstractController
         if (!$session) {
             throw $this->createNotFoundException('La session avec l\'id ' . $id . ' n\'a pas été trouvée.');
         }
+
+        $this->addFlash('success', 'La session a été supprimée avec succès.');
+
     
         $entityManager->remove($session);
         $entityManager->flush();
