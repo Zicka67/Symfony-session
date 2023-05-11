@@ -6,6 +6,7 @@ use App\Entity\Session;
 use App\Entity\Student;
 use App\Entity\Programme;
 use App\Form\SessionType;
+use App\Form\ChangeFormerType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ModulesRepository;
 use App\Repository\SessionRepository;
@@ -28,27 +29,34 @@ class SessionController extends AbstractController
     }
 
     #[Route('/sessions/{id}', name: 'app_showDetailsSession')]
-    public function showDetailsSession($id, EntityManagerInterface $entityManager,ModulesRepository $modulesRepository, SessionRepository $sessionRepository, StudentRepository $studentRepository, ProgrammeRepository $programmeRepository): Response
+    public function showDetailsSession($id, Request $request, EntityManagerInterface $entityManager, ModulesRepository $modulesRepository, SessionRepository $sessionRepository, StudentRepository $studentRepository, ProgrammeRepository $programmeRepository): Response
     {
-        // $session = $entityManager->getRepository(Session::class)->find($id); ou
         $session = $sessionRepository->find($id);
         $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
         $modules = $modulesRepository->getSessionModules($id);
         $programmes = $entityManager->getRepository(Programme::class)->findBy(['Session' => $id]);
         $allProgrammes = $entityManager->getRepository(Programme::class)->findAll();
         $programmesNotInSession = $programmeRepository->findProgrammesNotInSession($id);
+        $changeFormerForm = $this->createForm(ChangeFormerType::class, $session);
 
-        // dd($studentsNotInSession);
-        //  dd($modules);
+        $changeFormerForm->handleRequest($request);
+        if ($changeFormerForm->isSubmitted() && $changeFormerForm->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Le former a été changé avec succès.');
+            return $this->redirectToRoute('app_showDetailsSession', ['id' => $id]);
+        }
+
         return $this->render('formation/detailSession.html.twig', [
             'session' => $session,
             'studentsNotInSession' => $studentsNotInSession,
             'modules' => $modules,
             'programmes' => $programmes,    
             'allProgrammes' => $allProgrammes,
-            'programmesNotInSession' => $programmesNotInSession
+            'programmesNotInSession' => $programmesNotInSession,
+            'changeFormerForm' => $changeFormerForm->createView() 
         ]);
     }
+
 
     #[Route('/sessions/{id}/add-student/{studentId}', name: 'app_addStudentToSession')]
     public function addStudentToSession($id, $studentId, EntityManagerInterface $entityManager): Response
@@ -64,6 +72,9 @@ class SessionController extends AbstractController
     
         $entityManager->persist($session);
         $entityManager->flush();
+
+        $this->addFlash('success', 'L\'étudant a été ajoutée avec succès.');
+
     
         return $this->redirectToRoute('app_showDetailsSession', ['id' => $id]);
     }
@@ -76,6 +87,9 @@ class SessionController extends AbstractController
         
         $session->removeStudent($student);
         $entityManager->flush();
+
+        $this->addFlash('success', 'L\'étudiant a été supprimé avec succès.');
+
 
         return $this->redirectToRoute('app_showDetailsSession', ['id' => $sessionId]);
     }

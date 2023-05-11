@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 flashMessages.forEach(function (message) {
                     message.classList.add('hidden');
                 });
-            }, 4000);
+            }, 2000);
         });
 
 

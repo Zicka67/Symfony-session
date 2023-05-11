@@ -3,6 +3,13 @@
 {% block title %}{{ session.titlesection }}{% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+<div class="flash-message {{ label }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endfor %}
 <div class="flexTab">
   <div class="basic-tab">
 
@@ -11,13 +18,19 @@
 
       <thead>
         <tr>
-          <th colspan="2">Informations</th>
+          <th colspan="3">Informations</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="text-center">Professeur :</td>
           <td class="margin text-center">{{ session.former.firstName }} {{ session.former.lastName }}</td>
+          <td class="text-center">
+            {{ form_start(changeFormerForm) }}
+            {{ form_row(changeFormerForm.former) }}
+              <button type="submit">Changer le former</button>
+            {{ form_end(changeFormerForm) }}
+          </td>
         </tr>
         <tr>
           <td class="text-center">Date de début :</td>

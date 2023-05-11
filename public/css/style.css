@@ -163,6 +163,7 @@ nav ul li a {
     border-spacing: 0;
     border-radius: 5px;
     overflow: hidden; /* Pour que border radius soit appliqué */
+    background-color: var(--color-primary);
   }
 
   table tr {
@@ -448,8 +449,8 @@ button[type="submit"] {
 
 .flash-message {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 1vw;
+  left: 5vw; 
   padding: 15px;
   background-color: #4caf50;
   color: white;
@@ -458,6 +459,7 @@ button[type="submit"] {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
   z-index: 1000;
+
 }
 
 .flash-message.warning {

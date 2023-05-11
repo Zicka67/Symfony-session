@@ -1,5 +1,3 @@
-{# templates/student/show.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Détails de {{ student.firstName }} {{ student.lastName }}{% endblock %}
@@ -33,22 +31,31 @@
           <td>Ville :</td>
           <td>{{ student.ville }}</td>
         </tr>
-        {% if estInscrit %}
         <tr>
-          {% for session in sessions %}
-          {# {{ dump(sessions) }} #}
           <td>Sessions en cours de {{ student.firstName }} {{ student.lastName }}</td>
-          <td> <a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.getTitleSection }}</a></td>
-          {% endfor %}
-        
-          {% else %}
-            <td>Sessions en cours de {{ student.firstName }} {{ student.lastName }}</td>
-            <td>Pas de session actuellement</td>
-            </tr>
-          {% endif %}
-        
+          <td>
+            {% if estInscrit %}
+              <table class="sub-table">
+                {% for session in sessions %}
+                  <tr>
+                    <td><a href="{{ path('app_showDetailsSession', {'id': session.id}) }}">{{ session.getTitleSection }}</a></td>
+                  </tr>
+                {% endfor %}
+              </table>
+            {% else %}
+              Pas de session actuellement
+            {% endif %}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 
 {% endblock %}
+
+
+
+
+
+
+
