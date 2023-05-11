@@ -165,18 +165,24 @@
     <table class="tabDetailSession">
         <thead>
             <tr>
-                <th colspan="3">Liste des modules disponibles ({{ programmesNotInSession|length }}) :</th>
+                <th colspan="4">Liste des modules disponibles ({{ programmesNotInSession|length }}) :</th>
             </tr>
         </thead>
         <tbody>
-            {% for programme in programmesNotInSession %}
+            {% for programme in programmesNotInSession %} 
             <tr>
                 <td>{{ programme.modules.titleModules }}</td>
                 <td>{{ programme.duree }} jours</td>
                 {% if 'ROLE_ADMIN' in app.user.roles %}
+                <td>
+                    {{ form_start(programmeForms[programme.id]) }}
+                    {{ form_row(programmeForms[programme.id].duree) }}
+                    <button type="submit" class="btn">Mettre à jour</button>
+                    {{ form_end(programmeForms[programme.id]) }}
+                </td>
                 <td><a href="{{ path('add_programme_to_session', { 'session_id': session.id, 'programme_id': programme.id }) }}" class="btn">Programmer</a></td>
                 {% endif %}
-              </tr>
+            </tr>
             {% endfor %}
         </tbody>
     </table>

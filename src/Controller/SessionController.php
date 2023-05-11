@@ -6,6 +6,7 @@ use App\Entity\Session;
 use App\Entity\Student;
 use App\Entity\Programme;
 use App\Form\SessionType;
+use App\Form\ProgrammeType;
 use App\Form\ChangeFormerType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ModulesRepository;
@@ -35,9 +36,23 @@ class SessionController extends AbstractController
         $studentsNotInSession = $studentRepository->findStudentsNotInSession($id);
         $modules = $modulesRepository->getSessionModules($id);
         $programmes = $entityManager->getRepository(Programme::class)->findBy(['Session' => $id]);
-        $allProgrammes = $entityManager->getRepository(Programme::class)->findAll();
         $programmesNotInSession = $programmeRepository->findProgrammesNotInSession($id);
         $changeFormerForm = $this->createForm(ChangeFormerType::class, $session);
+        $allProgrammes = $entityManager->getRepository(Programme::class)->findAll();
+
+        $programmeForms = [];
+        foreach ($programmesNotInSession as $programme) {
+            $form = $this->createForm(ProgrammeType::class, $programme);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
+                $this->addFlash('success', 'La durée du programme a été mise à jour avec succès.');
+                return $this->redirectToRoute('app_showDetailsSession', ['id' => $id]);
+            }
+
+            $programmeForms[$programme->getId()] = $form->createView();
+        }
 
         $changeFormerForm->handleRequest($request);
         if ($changeFormerForm->isSubmitted() && $changeFormerForm->isValid()) {
@@ -50,10 +65,11 @@ class SessionController extends AbstractController
             'session' => $session,
             'studentsNotInSession' => $studentsNotInSession,
             'modules' => $modules,
-            'programmes' => $programmes,    
+            'programmes' => $programmes,
             'allProgrammes' => $allProgrammes,
             'programmesNotInSession' => $programmesNotInSession,
-            'changeFormerForm' => $changeFormerForm->createView() 
+            'changeFormerForm' => $changeFormerForm->createView(),
+            'programmeForms' => $programmeForms
         ]);
     }
 

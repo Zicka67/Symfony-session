@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ProgrammeType extends AbstractType
 {
@@ -22,7 +23,7 @@ class ProgrammeType extends AbstractType
                 'class' => 'App\Entity\Modules',
                 'choice_label' => 'title_modules',
             ])
-            ->add('duree')
+            ->add('duree', IntegerType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer',
             ]);

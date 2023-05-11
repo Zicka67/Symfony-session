@@ -20,6 +20,7 @@
         <tr>
           <td>Email :</td>
           <td>{{ app.user.email }}</td>
+          <td><a href="{{ path('account_change_email') }}" class="btn btn-primary">Modifier</a></td>
         </tr>
         <tr>
             <td>Rôle :</td>
@@ -31,6 +32,11 @@
             {# ? 'Yes' : 'No'  ( ternaire ) pour éviter d'avoir 0 ou 1 #}
             <td>{{ app.user.isVerified ? 'Yes' : 'No' }}</td>
         </tr>
+
+        <tr>
+          <td>Mot de passe :</td>
+          <td><a href="" class="btn btn-primary">Modifier</a></td>
+      </tr>
 
         {# <tr>
           <td>Modifications :</td>

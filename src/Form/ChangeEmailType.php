@@ -7,25 +7,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ChangePseudoType extends AbstractType
+class ChangeEmailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('pseudo', TextType::class, [
-                'label' => 'Nouveau pseudo',
-                'constraints' => [
-                    new NotBlank([  
-                        'message' => 'Entrez un nouveau message',
-                    ]),
-                ],
-            ]);
-            // ->add('save', SubmitType::class, ['label' => 'Modifier le pseudo']);
-    }
-    
+         $builder
+         ->add('email', EmailType::class, [
+            'label' => 'Nouvel email',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Entrez un nouvel email',
+                ]),
+            ],
+        ]);
+
+        }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
