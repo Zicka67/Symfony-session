@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ChangePseudoType;
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
@@ -29,5 +33,30 @@ class UserController extends AbstractController
         ]);
     }
 
-   
+
+    #[Route('/user/change', name: 'account_change_pseudo')]
+    public function changePseudo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePseudoType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user');
+            $this->addFlash('success', 'Votre pseudo a été modifié avec succès.');
+        }
+
+        return $this->render('user/change.html.twig', [
+            'changePseudoForm' => $form->createView(),
+        ]);
+    }
 }
+
+
+
+
+
+
+
