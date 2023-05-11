@@ -21,8 +21,8 @@ class ChangePseudoType extends AbstractType
                         'message' => 'Entrez un nouveau message',
                     ]),
                 ],
-            ])
-            ->add('save', SubmitType::class, ['label' => 'pseudo']);
+            ]);
+            // ->add('save', SubmitType::class, ['label' => 'Modifier le pseudo']);
     }
     
 

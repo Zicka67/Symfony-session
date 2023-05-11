@@ -8,13 +8,14 @@
     <table class="tabDetailSession">
       <thead>
         <tr>
-          <th colspan="2">Profil de {{ app.user.pseudo }}</th>
+          <th colspan="3">Profil de {{ app.user.pseudo }}</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Pseudo :</td>
           <td>{{ app.user.pseudo }}</td>
+          <td><a href="{{ path('account_change_pseudo') }}" class="btn btn-primary">Modifier</a></td>
         </tr>
         <tr>
           <td>Email :</td>

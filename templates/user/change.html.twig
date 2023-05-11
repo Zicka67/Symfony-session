@@ -14,42 +14,48 @@
     <table class="tabDetailSession">
       <thead>
         <tr>
-          <th colspan="2">Profil de {{ app.user.pseudo }}</th>
+          <th colspan="2">Modifier le profil : </th>
         </tr>
       </thead>
-      <tbody>
+   
         <tr>
-          <td>Pseudo :</td>
-          <td>{{ app.user.pseudo }}</td>
-        </tr>
-        <tr>
-          <td>Email :</td>
-          <td>{{ app.user.email }}</td>
-        </tr>
-        <tr>
-            <td>Rôle :</td>
-            {# |json_encode pour passer un array en string #}
-            <td>{{ app.user.roles|json_encode }}</td>
-        </tr>
-        <tr>
-            <td>Verified :</td>
-            {# ? 'Yes' : 'No'  ( ternaire ) pour éviter d'avoir 0 ou 1 #}
-            <td>{{ app.user.isVerified ? 'Yes' : 'No' }}</td>
-        </tr>
-
-        <tr>
-          <td>Modifications :</td>
+     
           <td>
-            <h1>Change Pseudo</h1>
+            <h1>Changer le Pseudo</h1>
 
             {{ form_start(changePseudoForm) }}
                 {{ form_row(changePseudoForm.pseudo) }}
-                {{ form_row(changePseudoForm.save) }}
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Êtes-vous sûr de vouloir modifier le pseudo ?')">Modifier le pseudo</button>
             {{ form_end(changePseudoForm) }}
-              {# <a href="{{ path('change_email') }}">Changer email</a> |
-              <a href="{{ path('change_password') }}">Changer mot de passe</a> #}
+           
           </td>
       </tr>
+      
+      <tr>
+
+        <td>
+          <h1>Changer l'email</h1>
+
+          {# {{ form_start(changePseudoForm) }}
+              {{ form_row(changePseudoForm.pseudo) }}
+              {{ form_row(changePseudoForm.save) }}
+          {{ form_end(changePseudoForm) }} #}
+
+        </td>
+    </tr>
+
+    <tr>
+
+      <td>
+        <h1>Changer le mot de passe</h1>
+
+        {# {{ form_start(changePseudoForm) }}
+            {{ form_row(changePseudoForm.pseudo) }}
+            {{ form_row(changePseudoForm.save) }}
+        {{ form_end(changePseudoForm) }} #}
+
+      </td>
+  </tr>
 
       </tbody>
     </table>
