@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}<script src="{{ asset('script/script.js') }}"></script>
+
+<div id="map"></div>
+
+{% endblock %}  
+{% block javascripts %}
+<script src="{{ asset('script/map.js') }}"></script>
+{% endblock %}

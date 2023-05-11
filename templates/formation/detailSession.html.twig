@@ -189,7 +189,7 @@
 </div>
 {% endif %}
 
-<a href="#" id="scroll-to-top" class="btn btn-scroll-top"><i class="fa fa-chevron-up"></i></a>
+<a href="#" id="scroll-to-top" class="btn-scroll-top"><i class="fa-solid fa-arrow-up"></i></a>
 
 
 {# <a href="{{ path('formation_sessions', {'id': formation.id, 'sessionId': session.id}) }}">Retour à la liste des sessions</a> #}
@@ -199,4 +199,5 @@
 
 {% block javascripts %}
     <script src="{{ asset('script/script.js') }}"></script>
+    <script src="{{ asset('script/scroll.js') }}"></script>
 {% endblock %}

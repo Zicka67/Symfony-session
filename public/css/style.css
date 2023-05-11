@@ -479,17 +479,28 @@ button[type="submit"] {
 
 .btn-scroll-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 2vw;
+  right: 2vw;
   z-index: 99;
   background: var(--color-accent);
-  color: #f80101;
+  /* color: #f80101;  */
   width: 3vw;
   height: 3vw;
-  line-height: 40px;
+  /* line-height: 40px; */
   text-align: center;
   border-radius: 50%;
   font-size: 20px;
+}
+
+.btn-scroll-top i {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.80vw;
+  color: white;
+}
+
+.btn-scroll-top i:hover {
+  color: white;
 }
 
 .btn-scroll-top:hover {
@@ -499,6 +510,16 @@ button[type="submit"] {
 
 .btn-scroll-top.show {
   display: block;
+}
+
+/* *********************** MAP ************************** */
+
+
+#map { 
+  height: 25vw; 
+  width: 50%;
+  margin: 0 auto;
+
 }
 
 
